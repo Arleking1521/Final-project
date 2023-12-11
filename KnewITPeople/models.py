@@ -1,7 +1,6 @@
 import os
 from django.db import models
-from django.contrib.auth.models import User
-from django.utils import timezone
+from PIL import Image
 
 class Person(models.Model):
     name = models.CharField(max_length=128)
@@ -44,5 +43,15 @@ class soc_links(models.Model):
 class certificates(models.Model):
     file = models.FileField(upload_to='certificates/')
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        # Проверяем формат файла
+        img = Image.open(self.file.path)
+        if img.format not in ['JPEG', 'PNG', 'JPG']:
+            # Если формат не соответствует JPEG или PNG, можно выбросить исключение или выполнить нужные действия
+            raise ValueError('Формат файла должен быть JPEG или PNG')
+
+
     def __str__(self) -> str:
         return f'{self.person.name}'
