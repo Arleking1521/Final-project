@@ -16,9 +16,9 @@ class Person(models.Model):
     # certificates
     certificate_knewit = models.BooleanField(default=False)
     # Resume
-    # Claim_work = models.ForeignKey(Claim_work, on_delete=models.???)
 
 class Claim_work(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
     stack = models.CharField(max_length=128)
     frame = models.CharField(max_length=128)
     desired_salary = models.IntegerField
@@ -33,3 +33,5 @@ class soc_links(models.Model):
     WPP = models.TextField
     Github = models.TextField
     twitter = models.TextField
+
+# class certificates
