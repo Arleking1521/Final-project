@@ -13,9 +13,8 @@ class Person(models.Model):
     skills = models.TextField
     languages= models.TextField
     work_ex = models.TextField
-    # certificates
     certificate_knewit = models.BooleanField(default=False)
-    # Resume
+    Resume = models.FileField(upload_to='resume/')
 
 class Claim_work(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
@@ -34,4 +33,6 @@ class soc_links(models.Model):
     Github = models.TextField
     twitter = models.TextField
 
-# class certificates
+class certificates(models.Model):
+    file = models.FileField(upload_to='certificates/')
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
