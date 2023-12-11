@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from rest_framework import status
 
 from .models import Person, Claim_work, Tech, certificates, soc_links
-from .serializer import PersonSerializer, ClaimWorkSerializer
+from .serializer import PersonSerializer, ClaimWorkSerializer, TechSerializer, SocLinksSerializer, CertificatesSerializer
 
 # Views for Person's data
 class PersonsView(APIView):
@@ -67,7 +67,7 @@ class ClaimWoekView(APIView):
             claim_work = Claim_work.objects.get(id=id)
             serializer = ClaimWorkSerializer(claim_work)
             return JsonResponse(serializer.data)
-        except Person.DoesNotExist:
+        except Claim_work.DoesNotExist:
             return JsonResponse({"error": "Claim work with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
     
     def put(self, request, id):
@@ -78,7 +78,7 @@ class ClaimWoekView(APIView):
                 serializer.save()
                 return JsonResponse(serializer.data)
             return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Person.DoesNotExist:
+        except Claim_work.DoesNotExist:
             return JsonResponse({"error": "Claim work with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
 
     def delete(self, request, id):
@@ -86,5 +86,132 @@ class ClaimWoekView(APIView):
             claim_work = Claim_work.objects.get(id=id)
             claim_work.delete()
             return JsonResponse({"message": "Claim work deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-        except Person.DoesNotExist:
+        except Claim_work.DoesNotExist:
             return JsonResponse({"error": "Claim work with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+# Views for Tech's data
+class TechsView(APIView):
+    def get(self, request):
+        techs = Tech.objects.all()
+        serializer = TechSerializer(techs, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    def post(self, request):
+        serializer = TechSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TechView(APIView):
+    def get(self, request, id):  
+        try:
+            tech = Tech.objects.get(id=id)
+            serializer = TechSerializer(tech)
+            return JsonResponse(serializer.data)
+        except Tech.DoesNotExist:
+            return JsonResponse({"error": "Tech with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, id):
+        try:
+            tech = Tech.objects.get(id=id)
+            serializer = TechSerializer(tech, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse(serializer.data)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Tech.DoesNotExist:
+            return JsonResponse({"error": "Tech with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self, request, id):
+        try:
+            tech = Tech.objects.get(id=id)
+            tech.delete()
+            return JsonResponse({"message": "Tech deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except Tech.DoesNotExist:
+            return JsonResponse({"error": "Tech with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
+ 
+# Views for Soc links's data
+class LinksView(APIView):
+    def get(self, request):
+        links = soc_links.objects.all()
+        serializer = SocLinksSerializer(links, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    def post(self, request):
+        serializer = SocLinksSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LinkView(APIView):
+    def get(self, request, id):  
+        try:
+            link = soc_links.objects.get(id=id)
+            serializer = SocLinksSerializer(link)
+            return JsonResponse(serializer.data)
+        except soc_links.DoesNotExist:
+            return JsonResponse({"error": "Links with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, id):
+        try:
+            link = soc_links.objects.get(id=id)
+            serializer = SocLinksSerializer(link, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse(serializer.data)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except soc_links.DoesNotExist:
+            return JsonResponse({"error": "Links with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self, request, id):
+        try:
+            link = soc_links.objects.get(id=id)
+            link.delete()
+            return JsonResponse({"message": "Links deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except soc_links.DoesNotExist:
+            return JsonResponse({"error": "Links with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
+
+# Views for certificates's data
+class CertificatesView(APIView):
+    def get(self, request):
+        certificate = certificates.objects.all()
+        serializer = CertificatesSerializer(certificate, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    def post(self, request):
+        serializer = CertificatesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CertificateView(APIView):
+    def get(self, request, id):  
+        try:
+            certificate = certificates.objects.get(id=id)
+            serializer = CertificatesSerializer(certificate)
+            return JsonResponse(serializer.data)
+        except certificates.DoesNotExist:
+            return JsonResponse({"error": "Certificate with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, id):
+        try:
+            certificate = certificates.objects.get(id=id)
+            serializer = CertificatesSerializer(certificate, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse(serializer.data)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except certificates.DoesNotExist:
+            return JsonResponse({"error": "Certificates with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self, request, id):
+        try:
+            certificate = certificates.objects.get(id=id)
+            certificate.delete()
+            return JsonResponse({"message": "Certificates deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except certificates.DoesNotExist:
+            return JsonResponse({"error": "Certificates with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
+ 
