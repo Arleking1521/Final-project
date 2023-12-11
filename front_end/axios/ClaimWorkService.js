@@ -1,0 +1,26 @@
+import axios from "axios"
+
+export default class ClaimWorkService {
+    static async getAll() {
+        const response = await axios.get("http://127.0.0.1:8000/api/work/")
+        return response.data
+    }
+
+    static async getById(id) {
+        const response =  await axios.get("http://127.0.0.1:8000/api/work/"+id+"/")
+        return response;
+    }
+
+    static async addWork(newWorkData) {
+        const response = await axios.post("http://127.0.0.1:8000/api/work/", newWorkData);
+        return response;
+    }
+    static async updateWork(id, updatedWorkData) {
+        const response = await axios.put(`http://127.0.0.1:8000/api/work/${id}/`, updatedWorkData);
+        return response.data;
+    }
+    static async deleteWork(id) {
+        const response = await axios.delete(`http://127.0.0.1:8000/api/work/${id}/`);
+        return response.data;
+    }
+}
