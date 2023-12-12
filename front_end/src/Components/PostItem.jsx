@@ -1,6 +1,7 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 import PersonService from "../axios/PersonService";
+
 const PostItem = ({person, works}) => {
     const navigate = useNavigate();
     // const handleDetailsClick = () => {
@@ -35,9 +36,10 @@ const PostItem = ({person, works}) => {
                     </button>
                     </div>
                 </div>
+                <div>{person.photo}</div>
                 <p>Name: {person.name}</p>
-                {/*<p>{person.}</p>*/}
-                {/*{person.certificate_knewit ? <div>True</div> : null}*/}
+                <p>{person.skills}</p>
+                {person.certificate_knewit ? <div>True</div> : null}
 
 
         </div>
