@@ -7,13 +7,11 @@ export default class LinksService {
     }
 
     static async getById(id) {
-        const response =  await axios.get("http://127.0.0.1:8000/api/links/"+id+"/")
-        return response;
+        return await axios.get("http://127.0.0.1:8000/api/links/" + id + "/");
     }
 
     static async addLinks(newLinksData) {
-        const response = await axios.post("http://127.0.0.1:8000/api/links/", newLinksData);
-        return response;
+        return await axios.post("http://127.0.0.1:8000/api/links/", newLinksData);
     }
     static async updateLinks(id, updatedLinksData) {
         const response = await axios.put(`http://127.0.0.1:8000/api/links/${id}/`, updatedLinksData);

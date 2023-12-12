@@ -7,13 +7,11 @@ export default class ClaimWorkService {
     }
 
     static async getById(id) {
-        const response =  await axios.get("http://127.0.0.1:8000/api/work/"+id+"/")
-        return response;
+        return await axios.get("http://127.0.0.1:8000/api/work/" + id + "/");
     }
 
     static async addWork(newWorkData) {
-        const response = await axios.post("http://127.0.0.1:8000/api/work/", newWorkData);
-        return response;
+        return await axios.post("http://127.0.0.1:8000/api/work/", newWorkData);
     }
     static async updateWork(id, updatedWorkData) {
         const response = await axios.put(`http://127.0.0.1:8000/api/work/${id}/`, updatedWorkData);

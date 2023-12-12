@@ -7,13 +7,11 @@ export default class PersonService {
     }
 
     static async getById(id) {
-        const response =  await axios.get("http://127.0.0.1:8000/api/person/"+id+"/")
-        return response;
+        return await axios.get("http://127.0.0.1:8000/api/person/" + id + "/");
     }
 
     static async addPerson(newPersonData) {
-        const response = await axios.post("http://127.0.0.1:8000/api/person/", newPersonData);
-        return response;
+        return await axios.post("http://127.0.0.1:8000/api/person/", newPersonData);
     }
     static async updatePerson(id, updatedPersonData) {
         const response = await axios.put(`http://127.0.0.1:8000/api/person/${id}/`, updatedPersonData);

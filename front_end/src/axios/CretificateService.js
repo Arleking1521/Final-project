@@ -7,13 +7,11 @@ export default class CertificateService {
     }
 
     static async getById(id) {
-        const response =  await axios.get("http://127.0.0.1:8000/api/certificate/"+id+"/")
-        return response;
+        return await axios.get("http://127.0.0.1:8000/api/certificate/" + id + "/");
     }
 
     static async addCertificate(newCertificateData) {
-        const response = await axios.post("http://127.0.0.1:8000/api/certificate/", newCertificateData);
-        return response;
+        return await axios.post("http://127.0.0.1:8000/api/certificate/", newCertificateData);
     }
     static async updateCertificate(id, updatedCertificateData) {
         const response = await axios.put(`http://127.0.0.1:8000/api/certificate/${id}/`, updatedCertificateData);
