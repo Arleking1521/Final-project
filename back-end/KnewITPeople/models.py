@@ -7,13 +7,13 @@ class Person(models.Model):
     age = models.IntegerField(default=0)
     phone = models.TextField(default=None)
     email = models.TextField(default=None)
-    photo = models.ImageField(default=None)
+    photo = models.FileField(upload_to='photo/', default=None)
     living_place = models.TextField(default=None)
     skills = models.TextField(default=None)
     languages= models.TextField(default=None)
     work_ex = models.TextField(default=None)
     certificate_knewit = models.BooleanField(default=False)
-    Resume = models.FileField(upload_to='resume/', default=None)
+    resume = models.FileField(upload_to='resume/', default=None)
     def __str__(self) -> str:
         return f'{self.name}'
 
@@ -41,7 +41,7 @@ class soc_links(models.Model):
         return f'{self.person.name}'
 
 class certificates(models.Model):
-    file = models.FileField(upload_to='certificates/')
+    file = models.FileField(upload_to='certificates/', default=None)
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

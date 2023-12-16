@@ -10,12 +10,13 @@ class PersonSerializer(serializers.ModelSerializer):
             'age', 
             'phone', 
             'email', 
+            'photo',
             'living_place',
             'skills',
             'languages',
             'work_ex',
             'certificate_knewit',
-            'Resume',
+            'resume',
             ]
 
 class ClaimWorkSerializer(serializers.ModelSerializer):
