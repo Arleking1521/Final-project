@@ -16,6 +16,7 @@ class PersonSerializer(serializers.ModelSerializer):
             'work_ex',
             'certificate_knewit',
             ]
+        
 
 class ClaimWorkSerializer(serializers.ModelSerializer):
     class Meta:

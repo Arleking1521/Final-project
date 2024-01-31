@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from rest_framework import status
-
 from .models import Person, Claim_work, Tech, certificates, soc_links
 from .serializer import PersonSerializer, ClaimWorkSerializer, TechSerializer, SocLinksSerializer, CertificatesSerializer
 
