@@ -34,7 +34,9 @@ const Main = () => {
     const handleDetailsClick = () => {
         navigate(``);
     };
-
+    const handleNewClick = () => {
+        navigate(`/newperson`);
+    };
     return (
         <div className="main_blog">
             <h1 className="title">
@@ -48,7 +50,7 @@ const Main = () => {
                 </span>
             ))}
             </div>
-            <button onClick={handleDetailsClick}>New Post</button>
+            <button onClick={handleNewClick}>New Post</button>
 
             <PostsList persons={persons} works={works} />
         </div>

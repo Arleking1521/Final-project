@@ -27,6 +27,7 @@ const PersonForm = () => {
         setNewPerson({
             ...newPerson,
             [name]: value,
+            photo: selectedFile,
         });
     };
 
@@ -41,7 +42,7 @@ const PersonForm = () => {
             });
 
             const response = await PersonService.addPerson(formData);
-            navigate('/');
+            navigate('/newperson');
             console.log('Новый человек добавлен:', response);
 
             setNewPerson({
@@ -49,6 +50,7 @@ const PersonForm = () => {
                 age: '',
                 phone: '',
                 email: '',
+                photo: '',
                 living_place: '',
                 languages: '',
                 work_ex: '',
