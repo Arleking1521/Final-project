@@ -63,7 +63,7 @@ const PostItem = ({person, work}) => {
                     </span>
                 </div>
                 <p className="p_fio">{person.name}</p>
-                <p className="p_info">{person.skills}</p>
+                <p className="p_info">{work.skills}</p>
             </div>
             <div className="conf-but">
                 <div className="conf">
