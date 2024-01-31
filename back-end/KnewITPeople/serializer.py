@@ -12,11 +12,9 @@ class PersonSerializer(serializers.ModelSerializer):
             'email', 
             'photo',
             'living_place',
-            'skills',
             'languages',
             'work_ex',
             'certificate_knewit',
-            'resume',
             ]
 
 class ClaimWorkSerializer(serializers.ModelSerializer):
@@ -28,6 +26,7 @@ class ClaimWorkSerializer(serializers.ModelSerializer):
             'stack', 
             'frame', 
             'desired_salary', 
+            'skills',
             ]
         
 class TechSerializer(serializers.ModelSerializer):
@@ -49,6 +48,7 @@ class SocLinksSerializer(serializers.ModelSerializer):
             'WPP',
             'Github',
             'twitter',
+            'resume',
         ]
 class CertificatesSerializer(serializers.ModelSerializer):
     class Meta:

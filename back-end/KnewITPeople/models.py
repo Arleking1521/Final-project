@@ -9,11 +9,9 @@ class Person(models.Model):
     email = models.TextField(default=None)
     photo = models.FileField(upload_to='photo/', default=None)
     living_place = models.TextField(default=None)
-    skills = models.TextField(default=None)
     languages= models.TextField(default=None)
     work_ex = models.TextField(default=None)
     certificate_knewit = models.BooleanField(default=False)
-    resume = models.FileField(upload_to='resume/', default=None)
     def __str__(self) -> str:
         return f'{self.name}'
 
@@ -22,6 +20,7 @@ class Claim_work(models.Model):
     stack = models.CharField(max_length=128)
     frame = models.CharField(max_length=128)
     desired_salary = models.IntegerField(default=0)
+    skills = models.TextField(default=None)
     def __str__(self) -> str:
         return f'{self.person.name}'
 
@@ -37,6 +36,7 @@ class soc_links(models.Model):
     WPP = models.TextField(default=None)
     Github = models.TextField(default=None)
     twitter = models.TextField(default=None)
+    resume = models.FileField(upload_to='resume/', default=None)
     def __str__(self) -> str:
         return f'{self.person.name}'
 
