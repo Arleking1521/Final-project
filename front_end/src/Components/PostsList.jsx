@@ -1,16 +1,20 @@
 import React from 'react';
 import PostItem from "./PostItem";
-const PostsList = ({persons, works}) => {
+const PostsList = (props) => {
 
     return (
         <div className="list">
-
-            {persons.map((person) => {
+            {props.persons.map((person) => {
                 return (
-                    <div key={person.id} className="list_item">
-                        <PostItem person={person} works={works} />
-
-                    </div>
+                    props.works.map((work) => {
+                        return(
+                            <div key={person.id} className="list_item">
+                                {person.id === work.person ?
+                                    <PostItem person={person} work={work} />
+                                 : null}
+                            </div>
+                        );
+                    })
                 );
             })}
         </div>

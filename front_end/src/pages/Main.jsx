@@ -6,6 +6,7 @@ import ClaimWorkService from "../axios/ClaimWorkService";
 import TechService from "../axios/TechService";
 import { useNavigate } from "react-router-dom";
 
+
 const Main = () => {
     const [persons, setPersons] = useState([]);
     const [works, setWorks] = useState([]);
@@ -41,21 +42,25 @@ const Main = () => {
         }
     }, []);
 
-    console.log('persons: ', persons);
-    console.log('works: ', works);
-
     const handleDetailsClick = () => {
         navigate(``);
     };
 
     return (
         <div className="main_blog">
+            <h1 className="title">
+                Наши Ученики
+            </h1>
+            <div className="filter">
             {techs.map((tech) => (
-                <div key={tech.id} className="list_item">
-                    <h1>{tech.frame}</h1>
-                </div>
+                <span key={tech.id}>
+                    {tech.frame.split(',').map((frame) =>(
+                    <a>{frame}</a>))}
+                </span>
             ))}
+            </div>
             <button onClick={handleDetailsClick}>New Post</button>
+
             <PostsList persons={persons} works={works} />
         </div>
     );

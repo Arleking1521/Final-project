@@ -1,5 +1,8 @@
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./Components/AppRouter";
+import Header from "./Components/Header";
+import "./style/style.css"
+import Footer from "./Components/Footer";
 
 
 
@@ -7,7 +10,11 @@ import AppRouter from "./Components/AppRouter";
 function App() {
   return (
       <BrowserRouter>
-        <AppRouter/>
+          <Header/>
+          <div className="main">
+              <AppRouter/>
+          </div>
+          <Footer/>
       </BrowserRouter>
 
   );
