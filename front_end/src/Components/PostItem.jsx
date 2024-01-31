@@ -57,7 +57,7 @@ const PostItem = ({person, work}) => {
                     <span>
                         {work.frame.split(',').map((fr) =>{
                         return(
-                            <a href="">{fr}</a>
+                            <a href="" key={fr}>{fr}</a>
                         );
                         })}
                     </span>

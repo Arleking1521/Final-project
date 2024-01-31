@@ -13,20 +13,9 @@ const Main = () => {
     const [techs, setTechs] = useState([]);
     const navigate = useNavigate();
 
-    const [fetchPersons] = useFetching(async () => {
-        const fetchedPersons = await PersonService.getAll();
-        setPersons(fetchedPersons);
-    });
-
-    const [fetchWorks] = useFetching(async () => {
-        const fetchedWorks = await ClaimWorkService.getAll();
-        setWorks(fetchedWorks);
-    });
-
-    const [fetchTechs] = useFetching(async () => {
-        const fetchedTechs = await TechService.getAll();
-        setTechs(fetchedTechs);
-    });
+    const [fetchPersons] = useFetching(async () => setPersons(await PersonService.getAll()));
+    const [fetchWorks] = useFetching(async () => setWorks(await ClaimWorkService.getAll()));
+    const [fetchTechs] = useFetching(async () => setTechs(await TechService.getAll()));
 
     const loadData = () => {
         fetchPersons();
@@ -53,9 +42,9 @@ const Main = () => {
             </h1>
             <div className="filter">
             {techs.map((tech) => (
-                <span key={tech.id}>
+                <span key={tech.id} >
                     {tech.frame.split(',').map((frame) =>(
-                    <a>{frame}</a>))}
+                    <a key={frame}>{frame}</a>))}
                 </span>
             ))}
             </div>
