@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+#root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 html{
     margin: 0;
 }
@@ -259,4 +263,77 @@ body{
 
 .social img{
     width: 50%;
+}
+
+.addPage{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center ;
+}
+
+.Log_cont{
+    display:flex;
+    justify-content: space-around;
+    width: 500px;
+    height: auto;
+    align-items: center;
+}
+.row_t{
+    display:flex;
+    justify-content: space-around;
+    width: 450px;
+}
+.tabsIt{
+    font-size: 20px;
+    height: 40px;
+    margin: 20px 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid #5A49F8;
+}
+.tabsIt a{
+    border-radius: 5px;
+    color: #5A49F8;
+    font-weight: bolt;
+    text-decoration: none;
+    padding: 10px;
+}
+.tabsIt a:active{
+    color: white;
+    background:#5A49F8;
+}
+.my-tabs{
+    color: #5A49F8;
+    background: white;
+    font-weight: bolt;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+.clicked{
+    color: white!important;
+    background:#5A49F8 !important;
+}
+.content{
+    border: 1px solid #5A49F8;
+    border-radius: 10px;
+    background: rgba(135, 169, 255, 0.5);
+    height: auto;
+    width: 400px;
+    margin-bottom: 50px;
+    padding: 25px;
+}
+.text{
+    font-size:20px;
+}
+.button{
+    color: #5A49F8;
+}
+.back_img{
+    border-radius: 50%;
+    margin-left:21%;
+    width:200px;
+    filter: opacity(70%);
 }
