@@ -11,15 +11,20 @@ const PersonForm = () => {
         age: '',
         phone: '',
         email: '',
+        photo: null,
         living_place: '',
         languages: '',
-        work_ex: '',
+        work_ex: null,
         certificate_knewit: false,
     });
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
+        setNewPerson({
+            ...newPerson,
+            photo: file,  // Обновляем поле photo в newPerson при выборе файла
+        });
     };
 
     const handleChange = (e) => {
@@ -27,7 +32,6 @@ const PersonForm = () => {
         setNewPerson({
             ...newPerson,
             [name]: value,
-            photo: selectedFile,
         });
     };
 
@@ -35,14 +39,20 @@ const PersonForm = () => {
         e.preventDefault();
         try {
             const formData = new FormData();
-            formData.append('file', selectedFile);
+
+            // Проверка наличия выбранного файла
+            if (selectedFile) {
+                formData.append('photo', selectedFile);
+            } else {
+                formData.append('photo', null);
+            }
 
             Object.keys(newPerson).forEach((key) => {
                 formData.append(key, newPerson[key]);
             });
 
             const response = await PersonService.addPerson(formData);
-            navigate('/newperson');
+            navigate('/');
             console.log('Новый человек добавлен:', response);
 
             setNewPerson({
@@ -50,25 +60,25 @@ const PersonForm = () => {
                 age: '',
                 phone: '',
                 email: '',
-                photo: '',
+                photo: null,
                 living_place: '',
                 languages: '',
-                work_ex: '',
+                work_ex: null,
                 certificate_knewit: false,
             });
             setSelectedFile(null);
         } catch (error) {
             console.error('Ошибка при добавлении нового человека:', error);
+            console.log("person: ", newPerson);
         }
     };
 
     return (
         <Form onSubmit={handleSubmit} className='text'>
             <h2>Добавление нового человека</h2>
-            <Row>
-                <Col>
+                <div>
                     <Form.Group controlId="name">
-                        <Form.Label >Имя:</Form.Label>
+                        <label >Имя:</label>
                         <Form.Control
                             type="text"
                             name="name"
@@ -78,7 +88,7 @@ const PersonForm = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="age">
-                        <Form.Label>Возраст:</Form.Label>
+                        <label>Возраст:</label>
                         <Form.Control
                             type="text"
                             name="age"
@@ -88,7 +98,7 @@ const PersonForm = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="phone">
-                        <Form.Label>Телефон:</Form.Label>
+                        <label>Телефон:</label>
                         <Form.Control
                             type="text"
                             name="phone"
@@ -98,7 +108,7 @@ const PersonForm = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="email">
-                        <Form.Label>Почта:</Form.Label>
+                        <label>Почта:</label>
                         <Form.Control
                             type="text"
                             name="email"
@@ -107,14 +117,14 @@ const PersonForm = () => {
                             required
                         />
                     </Form.Group>
-                </Col>
-                <Col>
+                </div>
+                <div>
                     <Form.Group controlId="file">
-                        <Form.Label>Файлы:</Form.Label>
+                        <label>Файлы:</label>
                         <Form.Control type="file" onChange={handleFileChange} />
                     </Form.Group>
                     <Form.Group controlId="living_place">
-                        <Form.Label>Место проживания:</Form.Label>
+                        <label>Место проживания:</label>
                         <Form.Control
                             type="text"
                             name="living_place"
@@ -124,7 +134,7 @@ const PersonForm = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="languages">
-                        <Form.Label>Знание языков:</Form.Label>
+                        <label>Знание языков:</label>
                         <Form.Control
                             type="text"
                             name="languages"
@@ -134,18 +144,15 @@ const PersonForm = () => {
                         />
                     </Form.Group>
                     <Form.Group controlId="work_ex">
-                        <Form.Label>Опыт работы:</Form.Label>
+                        <label>Опыт работы:</label>
                         <Form.Control
                             as="textarea"
                             rows={3}
                             name="work_ex"
-                            value={newPerson.work_ex}
                             onChange={handleChange}
-                            required
                         />
                     </Form.Group>
-                </Col>
-            </Row>
+                </div>
             <Button className="btn" type="submit">
                 Добавить человека
             </Button>

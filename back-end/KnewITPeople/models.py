@@ -7,11 +7,16 @@ class Person(models.Model):
     age = models.IntegerField(default=0)
     phone = models.TextField(default=None)
     email = models.TextField(default=None)
-    photo = models.FileField(upload_to='photo/', default=None)
+    photo = models.FileField(upload_to='photo/', default=None, null=True, blank=True)
     living_place = models.TextField(default=None)
     languages= models.TextField(default=None)
-    work_ex = models.TextField(default=None)
+    work_ex = models.TextField(default=None, null=True, blank=True)
     certificate_knewit = models.BooleanField(default=False)
+    def save(self, *args, **kwargs):
+        # Проверяем, было ли предоставлено изображение
+        if not self.photo:
+            self.photo = None
+        super().save(*args, **kwargs)
     def __str__(self) -> str:
         return f'{self.name}'
 

@@ -12,7 +12,11 @@ class PersonsView(APIView):
         return JsonResponse(serializer.data, safe=False)
 
     def post(self, request):
-        serializer = PersonSerializer(data=request.data)
+        if 'file' not in request.data:
+            mutable_post = request.POST.copy()
+            mutable_post['photo'] = None
+
+        serializer = PersonSerializer(data=mutable_post)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)

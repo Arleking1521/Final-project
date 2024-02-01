@@ -35,6 +35,7 @@ const NewPerson = () => {
                         </Row>
                     </Col>
                 </Tab.Container>
+
             </Container>
         </div>
     );

@@ -67,7 +67,7 @@ const ClaimWorkForm = () => {
             <h2>Добавление новой работы</h2>
             <div className="newPostForm">
                 <Form.Group controlId="name">
-                    <Form.Label>Имя:</Form.Label>
+                    <label>Имя:</label>
                     <Form.Control as="select" value={newWork.person} onChange={handleSelectChange} required>
                         <option value="" disabled>
                             Выберите опцию
@@ -80,7 +80,7 @@ const ClaimWorkForm = () => {
                     </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="stack">
-                    <Form.Label>Стек:</Form.Label>
+                    <label>Стек:</label>
                     <Form.Control
                         type="text"
                         name="stack"
@@ -90,7 +90,7 @@ const ClaimWorkForm = () => {
                     />
                 </Form.Group>
                 <Form.Group controlId="frame">
-                    <Form.Label>Фреймы:</Form.Label>
+                    <label>Фреймы:</label>
                     <Form.Control
                         type="text"
                         name="frame"
@@ -100,7 +100,7 @@ const ClaimWorkForm = () => {
                     />
                 </Form.Group>
                 <Form.Group controlId="desired_salary">
-                    <Form.Label>Желаемая зарплата:</Form.Label>
+                    <label>Желаемая зарплата:</label>
                     <Form.Control
                         type="text"
                         name="desired_salary"
@@ -110,7 +110,7 @@ const ClaimWorkForm = () => {
                     />
                 </Form.Group>
                 <Form.Group controlId="skills">
-                    <Form.Label>Опыт работы:</Form.Label>
+                    <label>Опыт работы:</label>
                     <Form.Control
                         as="textarea"
                         rows={3}
