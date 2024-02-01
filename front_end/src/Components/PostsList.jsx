@@ -8,7 +8,7 @@ const PostsList = (props) => {
                 return (
                     props.works.map((work) => {
                         return(
-                            <div key={person.id} className="list_item">
+                            <div key={work.id} className="list_item">
                                 {person.id === work.person ?
                                     <PostItem person={person} work={work} />
                                  : null}

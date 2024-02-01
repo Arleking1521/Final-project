@@ -25,7 +25,6 @@ const PostItem = ({person, work}) => {
                 });
         }
     };
-    console.log( 'work1:',  work);
     return (
         <div className="card">
             <div className="avatar">

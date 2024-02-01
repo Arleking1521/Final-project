@@ -55,7 +55,7 @@ const PersonForm = () => {
             }
 
             const response = await PersonService.addPerson(formData);
-            navigate('/');
+
             console.log('Новый человек добавлен:', response);
 
             setNewPerson({
@@ -70,6 +70,7 @@ const PersonForm = () => {
                 certificate_knewit: false,
             });
             setSelectedFile(null);
+            navigate('/newperson');
         } catch (error) {
             console.error('Ошибка при добавлении нового человека:', error);
         }
