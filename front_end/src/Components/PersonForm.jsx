@@ -23,7 +23,7 @@ const PersonForm = () => {
         setSelectedFile(file);
         setNewPerson({
             ...newPerson,
-            photo: file,  // Обновляем поле photo в newPerson при выборе файла
+            photo: file,  // Здесь сохраняем сам файл, а не его имя
         });
     };
 
@@ -38,18 +38,21 @@ const PersonForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            // Создаем объект FormData для передачи файлов и текстовых данных
             const formData = new FormData();
+
+            // Добавляем текстовые данные в formData
+            Object.keys(newPerson).forEach((key) => {
+                formData.append(key, newPerson[key]);
+            });
 
             // Проверка наличия выбранного файла
             if (selectedFile) {
                 formData.append('photo', selectedFile);
-            } else {
+            }
+            else {
                 formData.append('photo', null);
             }
-
-            Object.keys(newPerson).forEach((key) => {
-                formData.append(key, newPerson[key]);
-            });
 
             const response = await PersonService.addPerson(formData);
             navigate('/');
@@ -69,7 +72,6 @@ const PersonForm = () => {
             setSelectedFile(null);
         } catch (error) {
             console.error('Ошибка при добавлении нового человека:', error);
-            console.log("person: ", newPerson);
         }
     };
 

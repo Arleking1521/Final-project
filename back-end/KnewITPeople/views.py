@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from rest_framework import status
 from .models import Person, Claim_work, Tech, certificates, soc_links
 from .serializer import PersonSerializer, ClaimWorkSerializer, TechSerializer, SocLinksSerializer, CertificatesSerializer
+from django.core.files.storage import default_storage
 
 # Views for Person's data
 class PersonsView(APIView):
@@ -12,15 +13,25 @@ class PersonsView(APIView):
         return JsonResponse(serializer.data, safe=False)
 
     def post(self, request):
-        if 'file' not in request.data:
+        # if request.data.photo  == 'null':
+        #     mutable_post = request.POST.copy()
+        #     mutable_post['photo'] = None
+        if 'photo' in request.data and request.data['photo'] == 'null':
+            # Если фото указано и его значение 'null', устанавливаем поле 'photo' в None
             mutable_post = request.POST.copy()
             mutable_post['photo'] = None
 
-        serializer = PersonSerializer(data=mutable_post)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer = PersonSerializer(data=mutable_post)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else :
+            serializer = PersonSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class PersonView(APIView):
     def get(self, request, id):  
@@ -45,6 +56,16 @@ class PersonView(APIView):
     def delete(self, request, id):
         try:
             person = Person.objects.get(id=id)
+
+            # Удаление связанного фото с хранилища
+            if person.photo:
+                file_path = person.photo.path
+
+                # Убеждаемся, что файл существует перед удалением
+                if default_storage.exists(file_path):
+                    # Удаляем файл с хранилища
+                    default_storage.delete(file_path)
+
             person.delete()
             return JsonResponse({"message": "Person deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except Person.DoesNotExist:
