@@ -1,3 +1,4 @@
+import os
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from rest_framework import status
@@ -56,15 +57,13 @@ class PersonView(APIView):
     def delete(self, request, id):
         try:
             person = Person.objects.get(id=id)
-
             # Удаление связанного фото с хранилища
             if person.photo:
                 file_path = person.photo.path
-
                 # Убеждаемся, что файл существует перед удалением
-                if default_storage.exists(file_path):
-                    # Удаляем файл с хранилища
-                    default_storage.delete(file_path)
+                if os.path.exists(file_path):
+                # Удаляем файл с сервера
+                    os.remove(file_path)
 
             person.delete()
             return JsonResponse({"message": "Person deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
