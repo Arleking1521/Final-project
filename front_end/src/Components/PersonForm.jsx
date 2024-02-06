@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, Col, Row } from 'react-bootstrap';
 import PersonService from '../axios/PersonService';
+import {usePersonContext} from "../Context/context";
 
 const PersonForm = () => {
     const navigate = useNavigate();
     const [selectedFile, setSelectedFile] = useState(null);
+    const { persons, setPersons } = usePersonContext();
     const [newPerson, setNewPerson] = useState({
         name: '',
         age: '',
@@ -55,7 +57,7 @@ const PersonForm = () => {
             }
 
             const response = await PersonService.addPerson(formData);
-
+            setPersons([...persons, formData]);
             console.log('Новый человек добавлен:', response);
 
             setNewPerson({

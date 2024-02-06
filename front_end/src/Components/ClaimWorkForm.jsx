@@ -45,7 +45,7 @@ const ClaimWorkForm = () => {
         e.preventDefault();
         try {
             const response = await ClaimWorkService.addWork(newWork);
-            navigate('/'); // Перенаправление на главную страницу, измените при необходимости
+            navigate('/newperson'); // Перенаправление на главную страницу, измените при необходимости
 
             console.log('Новая работа добавлена:', response);
 

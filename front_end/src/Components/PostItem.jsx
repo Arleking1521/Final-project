@@ -1,19 +1,18 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import PersonService from "../axios/PersonService";
 import logo from '../assets/logo2.png'
 import verified from "../assets/icons8-проверено-50.png"
+import WorkService from "../axios/ClaimWorkService";
 
-// import test from '/media/photo/3505889_BIRPshu.jpg'
 const PostItem = ({person, work}) => {
     const navigate = useNavigate();
-    // const handleDetailsClick = () => {
-    //     navigate(`/post/${person.id}`);
-    // };
+    const handleDetailsClick = () => {
+        navigate(`/details/${person.id}`);
+    };
 
     const handleDeleteClick = () => {
         if (window.confirm('Вы уверены, что хотите удалить этот пост?')) {
-            PersonService.deletePerson(person.id)
+           WorkService.deleteWork(work.id)
                 .then(() => {
                     navigate('');
                     setTimeout(() => {
@@ -56,7 +55,7 @@ const PostItem = ({person, work}) => {
                         :
                     null}
                 </div>
-                <a href="" className="more-but">ПОДРОБНЕЕ...</a>
+                <a href="" onClick={handleDetailsClick} className="more-but">ПОДРОБНЕЕ...</a>
                 <button onClick={handleDeleteClick} className="btn">
                     Delete
                 </button>
