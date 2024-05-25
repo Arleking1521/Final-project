@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { PersonContext, TechContext, WorkContext } from '../Context/context';
 
 const Vacancy_list = () => {
-    const companiesContext = useContext(CompaniesContext);
-    const vacancyContext = useContext(VacancyContext);
+    const personsContext = useContext(PersonContext);
+    const workContext = useContext(WorkContext);
+    const techContext = useContext(TechContext);
     const navigate = useNavigate();
 
-    const { companies } = companiesContext;
-    const { vacancies } = vacancyContext;
+    const { persons } = personsContext;
+    const { works } = workContext;
+    const { techs } = techContext;
 
     const handleDetailsClick = () => {
         navigate(``);
@@ -21,11 +23,11 @@ const Vacancy_list = () => {
 
     return (
         <div className="main_blog">
-            <h1 className="title">Наши Ученики</h1>
+            <h1 className="title">Вакансии от компаний</h1>
             <div className="filter">
-                {techs.map((vacancies) => (
-                    <span key={vacancies.id}>
-            {vacancies.frame.split(',').map((frame) => (
+                {techs.map((tech) => (
+                    <span key={tech.id}>
+            {tech.frame.split(',').map((frame) => (
                 <a key={frame}>{frame}</a>
             ))}
           </span>
