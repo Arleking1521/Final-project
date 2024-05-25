@@ -7,7 +7,7 @@ class Person(models.Model):
     age = models.IntegerField(default=0)
     phone = models.TextField(default=None)
     email = models.TextField(default=None)
-    photo = models.FileField(upload_to='photo/', default=None, null=True, blank=True)
+    photo = models.FileField(upload_to='photo/jobseekers/', default=None, null=True, blank=True)
     living_place = models.TextField(default=None)
     languages= models.TextField(default=None)
     work_ex = models.TextField(default=None, null=True, blank=True)

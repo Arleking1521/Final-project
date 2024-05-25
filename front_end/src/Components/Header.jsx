@@ -4,8 +4,11 @@ import {useNavigate} from "react-router-dom";
 
 const Header = () => {
     const navigate = useNavigate();
-    const handleDetailsClick = () => {
+    const handleJobseekersClick = () => {
         navigate(`/`);
+    };
+    const handleVacanciesClick = () => {
+        navigate(`/vacancy/`);
     };
     return (
         <div className="myHeader">
@@ -16,8 +19,8 @@ const Header = () => {
                 <span>PEOPLE</span>
             </div>
             <div className="menu">
-                <a href="" className="link" onClick={handleDetailsClick}>ученики</a>
-                <a href="" className="link">Вакансии</a>
+                <a href="" className="link" onClick={handleJobseekersClick}>ученики</a>
+                <a href="" className="link" onClick={handleVacanciesClick}>Вакансии</a>
                 <a href="https://knewit.kz/" className="link">KnewIT.kz</a>
             </div>
         </div>

@@ -3,15 +3,13 @@ import PostsList from '../Components/PostsList';
 import { useNavigate } from 'react-router-dom';
 import { PersonContext, TechContext, WorkContext } from '../Context/context';
 
-const Main = () => {
-    const personsContext = useContext(PersonContext);
-    const workContext = useContext(WorkContext);
-    const techContext = useContext(TechContext);
+const Vacancy_list = () => {
+    const companiesContext = useContext(CompaniesContext);
+    const vacancyContext = useContext(VacancyContext);
     const navigate = useNavigate();
 
-    const { persons } = personsContext;
-    const { works } = workContext;
-    const { techs } = techContext;
+    const { companies } = companiesContext;
+    const { vacancies } = vacancyContext;
 
     const handleDetailsClick = () => {
         navigate(``);
@@ -25,9 +23,9 @@ const Main = () => {
         <div className="main_blog">
             <h1 className="title">Наши Ученики</h1>
             <div className="filter">
-                {techs.map((tech) => (
-                    <span key={tech.id}>
-            {tech.frame.split(',').map((frame) => (
+                {techs.map((vacancies) => (
+                    <span key={vacancies.id}>
+            {vacancies.frame.split(',').map((frame) => (
                 <a key={frame}>{frame}</a>
             ))}
           </span>
@@ -40,4 +38,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default Vacancy_list;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Route, Routes } from "react-router-dom";
-import { publicRoutes } from "../router"; // Предполагается, что у вас есть страница для 404
+import { publicRoutes } from "../router";
 
 const AppRouter = () => {
     return (

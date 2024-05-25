@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('api/', include('KnewITPeople.urls')),
+    path('api/', include('back_end.apiurls')),
     path('admin/', admin.site.urls),
 ]
 

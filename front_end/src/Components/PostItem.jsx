@@ -56,9 +56,9 @@ const PostItem = ({person, work}) => {
                     null}
                 </div>
                 <a href="" onClick={handleDetailsClick} className="more-but">ПОДРОБНЕЕ...</a>
-                <button onClick={handleDeleteClick} className="btn">
+                {/* <button onClick={handleDeleteClick} className="btn">
                     Delete
-                </button>
+                </button> */}
             </div>
         </div>
     );
