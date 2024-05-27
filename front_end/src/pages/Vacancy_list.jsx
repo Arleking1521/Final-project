@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
-import PostsList from '../Components/PostsList';
+import VacancyList from '../Components/VacancyList';
 import { useNavigate } from 'react-router-dom';
-import { PersonContext, TechContext, WorkContext } from '../Context/context';
+import { VacancyContext, CompaniesContext, TechContext } from '../Context/context';
 
 const Vacancy_list = () => {
-    const personsContext = useContext(PersonContext);
-    const workContext = useContext(WorkContext);
+    const vacancyContext = useContext(VacancyContext);
+    const companiesContext = useContext(CompaniesContext);
     const techContext = useContext(TechContext);
     const navigate = useNavigate();
 
-    const { persons } = personsContext;
-    const { works } = workContext;
+    const { vacancies } = vacancyContext;
+    const { companies } = companiesContext;
     const { techs } = techContext;
 
     const handleDetailsClick = () => {
@@ -35,7 +35,7 @@ const Vacancy_list = () => {
             </div>
             {/* <button onClick={handleNewClick}>New Post</button> */}
 
-            <PostsList persons={persons} works={works} />
+            <VacancyList companies={companies} vacancies={vacancies} />
         </div>
     );
 };
