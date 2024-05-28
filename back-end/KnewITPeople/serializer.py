@@ -24,8 +24,8 @@ class ClaimWorkSerializer(serializers.ModelSerializer):
         fields = [ 
             'id', 
             'person', 
-            'stack', 
-            'frame', 
+            'title', 
+            'stack_frame', 
             'desired_salary', 
             'skills',
             ]

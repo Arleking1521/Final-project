@@ -20,21 +20,21 @@ class Person(models.Model):
     def __str__(self) -> str:
         return f'{self.name}'
 
-class Claim_work(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, default=None)
-    stack = models.CharField(max_length=128)
-    frame = models.CharField(max_length=128)
-    desired_salary = models.IntegerField(default=0)
-    skills = models.TextField(default=None)
-    def __str__(self) -> str:
-        return f'{self.person.name}'
-
 class Tech(models.Model):
     frame = models.TextField(default=None)
     stack = models.CharField(max_length=128)
     def __str__(self) -> str:
-        return f'{self.stack}'
-    
+        return f'{self.stack} | {self.frame}'
+
+class Claim_work(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, default=None)
+    title = models.CharField(max_length=128)
+    stack_frame = models.ManyToManyField('Tech', related_name='claim_works_frame')
+    desired_salary = models.IntegerField(default=0)
+    skills = models.TextField(default=None)
+    def __str__(self) -> str:
+        return f'{self.title}: {self.stack_frame}'
+
 class soc_links(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     instagram = models.TextField(default=None)
