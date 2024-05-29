@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import PostsList from '../Components/PostsList';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link} from 'react-router-dom';
 import { PersonContext, TechContext, WorkContext } from '../Context/context';
+import back from "../assets/back-button.png"
 
 const Main = () => {
     const personsContext = useContext(PersonContext);
@@ -17,6 +18,7 @@ const Main = () => {
 
     let UniqueTechs = [];
     let urlOption;
+    let backButtonShow = false;
 
     const isEmptyObject = (obj) => {
         return Object.keys(obj).length === 0;
@@ -29,6 +31,7 @@ const Main = () => {
     else{
         UniqueTechs = Array.from(techs.map(tech => tech.frame));
         urlOption = "frame";
+        backButtonShow = true;
     }
 
     const handleDetailsClick = () => {
@@ -45,9 +48,17 @@ const Main = () => {
         navigate(path); // Переход на указанный путь
       };
 
+
+    const handleGoBack = () => {
+        navigate('/');
+    };
+
     return (
         <div className="main_blog">
-            <h1 className="title">Наши Ученики</h1>
+            <span className="title_head">
+                {backButtonShow ? <button onClick={handleGoBack}><img src={back}/></button> : null}
+                <h1 className='title'>Наши Ученики</h1>
+            </span>
             <div className="filter">
                 {UniqueTechs.map((tech) => (
                     <span>
