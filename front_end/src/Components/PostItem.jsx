@@ -44,7 +44,7 @@ const PostItem = ({person, work, techs}) => {
                         return(
                             techs.map((tech) =>{
                                 return(
-                                    tech.id == fr ? <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/frame/' + tech.frame)}>{tech.frame}</a> : null
+                                    tech.id == fr ? <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/stack/'+ tech.stack+ '/frame/' + tech.frame)}>{tech.frame}</a> : null
                                 );
                             })
                         );

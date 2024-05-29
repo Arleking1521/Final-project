@@ -29,7 +29,11 @@ const Main = () => {
         urlOption = "stack";
     }
     else{
-        UniqueTechs = Array.from(techs.map(tech => tech.frame));
+        techs.forEach(tech => {
+            if(tech.stack.toLowerCase() === parametrs.stack.toLowerCase()){
+                UniqueTechs.push(tech.frame);
+            }
+        });
         urlOption = "frame";
         backButtonShow = true;
     }
@@ -44,8 +48,12 @@ const Main = () => {
 
     const handleFilterClick = (event, path) => {
         event.preventDefault(); // Предотвращаем переход по ссылке по умолчанию
-        console.log(path);
-        navigate(path); // Переход на указанный путь
+        if(urlOption === "frame"){
+            navigate('/stack/' + parametrs.stack + path); // Переход на указанный путь
+        }
+        else{
+            navigate(path);
+        }
       };
 
 
@@ -62,7 +70,7 @@ const Main = () => {
             <div className="filter">
                 {UniqueTechs.map((tech) => (
                     <span>
-                            <a href="" onClick={(event) => handleFilterClick(event, '/' + urlOption + '/' + tech)}>{tech}</a>
+                            <a href="" onClick={(event) => handleFilterClick(event, '/'+ urlOption + '/' + tech)}>{tech}</a>
                     </span>
                 ))}
             </div>
