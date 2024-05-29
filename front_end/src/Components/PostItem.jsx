@@ -4,8 +4,9 @@ import logo from '../assets/logo2.png'
 import verified from "../assets/icons8-проверено-50.png"
 import WorkService from "../axios/ClaimWorkService";
 
-const PostItem = ({person, work}) => {
+const PostItem = ({person, work, techs}) => {
     const navigate = useNavigate();
+
     const handleDetailsClick = () => {
         navigate(`/details/${person.id}`);
     };
@@ -24,6 +25,8 @@ const PostItem = ({person, work}) => {
                 });
         }
     };
+
+    console.log(work);
     return (
         <div className="card">
             <div className="avatar">
@@ -31,11 +34,15 @@ const PostItem = ({person, work}) => {
             </div>
             <div className="info">
                 <div className="info_h">
-                    <p className="tech">{work.stack}</p>
+                    <p className="tech">{work.title}</p>
                     <span>
-                        {work.frame.split(',').map((fr) =>{
+                        {work.stack_frame.map((fr) =>{
                         return(
-                            <a href="" key={fr}>{fr}</a>
+                            techs.map((tech) =>{
+                                return(
+                                    tech.id == fr ? <a href="" key={tech.id}>{tech.frame}</a> : null
+                                );
+                            })
                         );
                         })}
                     </span>
