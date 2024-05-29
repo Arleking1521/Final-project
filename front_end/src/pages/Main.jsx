@@ -13,6 +13,8 @@ const Main = () => {
     const { works } = workContext;
     const { techs } = techContext;
 
+    const UniqueTechs = Array.from(new Set(techs.map(tech => tech.stack)));
+
     const handleDetailsClick = () => {
         navigate(``);
     };
@@ -25,17 +27,15 @@ const Main = () => {
         <div className="main_blog">
             <h1 className="title">Наши Ученики</h1>
             <div className="filter">
-                {techs.map((tech) => (
-                    <span key={tech.id}>
-            {tech.frame.split(',').map((frame) => (
-                <a key={frame}>{frame}</a>
-            ))}
-          </span>
+                {UniqueTechs.map((tech) => (
+                    <span>
+                            <a>{tech}</a>
+                    </span>
                 ))}
             </div>
             {/* <button onClick={handleNewClick}>New Post</button> */}
 
-            <PostsList persons={persons} works={works} />
+            <PostsList persons={persons} works={works} techs={techs} />
         </div>
     );
 };

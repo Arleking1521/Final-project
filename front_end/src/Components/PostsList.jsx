@@ -10,7 +10,7 @@ const PostsList = (props) => {
                         return(
                             <div key={work.id} className="list_item">
                                 {person.id === work.person ?
-                                    <PostItem person={person} work={work} />
+                                    <PostItem person={person} work={work} techs = {props.techs} />
                                  : null}
                             </div>
                         );
