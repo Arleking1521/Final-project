@@ -1,17 +1,40 @@
 import React, { useContext } from 'react';
 import VacancyList from '../Components/VacancyList';
-import { useNavigate } from 'react-router-dom';
-import { VacancyContext, CompaniesContext, TechContext } from '../Context/context';
+import { useNavigate, useParams } from 'react-router-dom';
+import { CombinedContext } from '../Context/context';
+import back from "../assets/back-button.png"
 
 const Vacancy_list = () => {
-    const vacancyContext = useContext(VacancyContext);
-    const companiesContext = useContext(CompaniesContext);
-    const techContext = useContext(TechContext);
+    const combinedContext = useContext(CombinedContext);
     const navigate = useNavigate();
 
-    const { vacancies } = vacancyContext;
-    const { companies } = companiesContext;
-    const { techs } = techContext;
+    const { vacancies } = combinedContext.vacancies;
+    const { companies } = combinedContext.companies;
+    const { techs } = combinedContext.techs;
+
+    const parametrs = useParams();
+
+    let UniqueTechs = [];
+    let urlOption;
+    let backButtonShow = false;
+
+    const isEmptyObject = (obj) => {
+        return Object.keys(obj).length === 0;
+    }
+
+    if(isEmptyObject(parametrs)){
+        UniqueTechs = Array.from(new Set(techs.map(tech => tech.stack)));
+        urlOption = "stack";
+    }
+    else{
+        techs.forEach(tech => {
+            if(tech.stack.toLowerCase() === parametrs.stack.toLowerCase()){
+                UniqueTechs.push(tech.frame);
+            }
+        });
+        urlOption = "frame";
+        backButtonShow = true;
+    }
 
     const handleDetailsClick = () => {
         navigate(``);
@@ -21,16 +44,32 @@ const Vacancy_list = () => {
         navigate(`/newperson`);
     };
 
+    const handleFilterClick = (event, path) => {
+        event.preventDefault(); // Предотвращаем переход по ссылке по умолчанию
+        if(urlOption === "frame"){
+            navigate('/stack/' + parametrs.stack + path); // Переход на указанный путь
+        }
+        else{
+            navigate(path);
+        }
+      };
+
+
+    const handleGoBack = () => {
+        navigate('/vacancy');
+    };
+
     return (
         <div className="main_blog">
-            <h1 className="title">Вакансии от компаний</h1>
+            <span className="title_head">
+                {backButtonShow ? <button onClick={handleGoBack}><img src={back}/></button> : null}
+                <h1 className='title'>Наши Ученики</h1>
+            </span>
             <div className="filter">
-                {techs.map((tech) => (
-                    <span key={tech.id}>
-            {tech.frame.split(',').map((frame) => (
-                <a key={frame}>{frame}</a>
-            ))}
-          </span>
+                {UniqueTechs.map((tech) => (
+                    <span>
+                            <a href="" onClick={(event) => handleFilterClick(event, '/'+ urlOption + '/' + tech)}>{tech}</a>
+                    </span>
                 ))}
             </div>
             {/* <button onClick={handleNewClick}>New Post</button> */}

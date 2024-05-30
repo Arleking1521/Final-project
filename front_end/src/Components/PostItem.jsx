@@ -4,9 +4,14 @@ import logo from '../assets/logo2.png'
 import verified from "../assets/icons8-проверено-50.png"
 import WorkService from "../axios/ClaimWorkService";
 
+
 const PostItem = ({person, work, techs}) => {
     const navigate = useNavigate();
-
+    const handleFilterClick = (event, path) => {
+        event.preventDefault(); // Предотвращаем переход по ссылке по умолчанию
+        console.log(path);
+        navigate(path); // Переход на указанный путь
+      };
     const handleDetailsClick = () => {
         navigate(`/details/${person.id}`);
     };
@@ -26,7 +31,6 @@ const PostItem = ({person, work, techs}) => {
         }
     };
 
-    console.log(work);
     return (
         <div className="card">
             <div className="avatar">
@@ -40,7 +44,7 @@ const PostItem = ({person, work, techs}) => {
                         return(
                             techs.map((tech) =>{
                                 return(
-                                    tech.id == fr ? <a href="" key={tech.id}>{tech.frame}</a> : null
+                                    tech.id == fr ? <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/stack/'+ tech.stack+ '/frame/' + tech.frame)}>{tech.frame}</a> : null
                                 );
                             })
                         );
