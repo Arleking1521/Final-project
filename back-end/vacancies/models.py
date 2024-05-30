@@ -1,6 +1,6 @@
 from django.db import models
-from KnewITPeople.models import Tech
 from django.utils import timezone
+from KnewITPeople.models import Tech
 # Create your models here.
 class Company(models.Model):
     name = models.CharField(max_length=128)
@@ -33,9 +33,8 @@ class Vacancy(models.Model):
     requirements = models.TextField(default=None)
     additionally = models.TextField(default=None, blank=True, null=True)
     skills = models.CharField()
-    stack = models.ForeignKey(Tech, on_delete=models.CASCADE)
-    frame = models.CharField(default=None, blank=True, null=True)
-    date = models.DateTimeField(default=timezone.now, verbose_name='Дата')
+    stack_frame = models.ManyToManyField(Tech, related_name='vacancy_frame')
+    date = models.DateTimeField(default=timezone.now, verbose_name='Date')
     def __str__(self) -> str:
         return f'{self.name}'
     

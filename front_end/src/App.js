@@ -3,12 +3,12 @@ import AppRouter from "./Components/AppRouter";
 import Header from "./Components/Header";
 import "./style/style.css"
 import Footer from "./Components/Footer";
-import {useEffect, useState} from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import {useFetching} from "./hookes/useFetching";
 import PersonService from "./axios/PersonService";
 import ClaimWorkService from "./axios/ClaimWorkService";
 import TechService from "./axios/TechService";
-import {PersonContext, WorkContext, TechContext, VacancyContext, CompaniesContext} from "./Context/context";
+import {CombinedContext} from "./Context/context";
 import VacancyService from "./axios/VacancyService";
 import CompanyService from "./axios/CompanyService";
 
@@ -28,13 +28,13 @@ function App() {
     const [fetchVacancy] = useFetching(async () => setVacancy(await VacancyService.getAll()));
     const [fetchCompany] = useFetching(async () => setCompany(await CompanyService.getAll()));
 
-    const loadData = () => {
+    const loadData = useCallback(() => {
         fetchPersons();
         fetchWorks();
         fetchTechs();
         fetchVacancy();
         fetchCompany();
-    };
+    }, [fetchPersons, fetchWorks, fetchTechs, fetchVacancy, fetchCompany]);
 
     useEffect(() => {
         try {
@@ -44,24 +44,29 @@ function App() {
         }
     }, []);
 
+    
+    
     return (
-        <PersonContext.Provider value={{ persons, setPersons }}>
-            <WorkContext.Provider value={{ works, setWorks }}>
-                <TechContext.Provider value={{ techs, setTechs }}>
-                    <CompaniesContext.Provider value={{ companies, setPersons }}>
-                        <VacancyContext.Provider value={{ vacancies, setPersons }}>
-                            <BrowserRouter>
-                                <Header />
-                                <div className="main">
-                                    <AppRouter />
-                                </div>
-                                <Footer />
-                                </BrowserRouter>
-                        </VacancyContext.Provider>
-                    </CompaniesContext.Provider >
-                </TechContext.Provider>
-            </WorkContext.Provider>
-        </PersonContext.Provider>
+        <CombinedContext.Provider value={{
+            persons,
+            setPersons,
+            works,
+            setWorks,
+            techs,
+            setTechs,
+            vacancies,
+            setVacancy,
+            companies,
+            setCompany
+        }}>
+            <BrowserRouter>
+                <Header />
+                <div className="main">
+                    <AppRouter />
+                </div>
+                <Footer />
+            </BrowserRouter>
+        </CombinedContext.Provider>
   );
 }
 

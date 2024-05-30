@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button, Col, Row } from 'react-bootstrap';
 import PersonService from '../axios/PersonService';
-import {usePersonContext} from "../Context/context";
+import {useCombinedContext} from "../Context/context";
 
 const PersonForm = () => {
     const navigate = useNavigate();
     const [selectedFile, setSelectedFile] = useState(null);
-    const { persons, setPersons } = usePersonContext();
+    const { persons, setPersons } = useCombinedContext();
     const [newPerson, setNewPerson] = useState({
         name: '',
         age: '',

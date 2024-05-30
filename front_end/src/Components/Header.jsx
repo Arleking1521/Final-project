@@ -8,7 +8,7 @@ const Header = () => {
         navigate(`/`);
     };
     const handleVacanciesClick = () => {
-        navigate(`/vacancy/`);
+        navigate(`/vacancy`);
     };
     return (
         <div className="myHeader">
