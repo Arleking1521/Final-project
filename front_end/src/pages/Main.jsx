@@ -61,6 +61,7 @@ const Main = () => {
         navigate('/');
     };
 
+
     return (
         <div className="main_blog">
             <span className="title_head">
@@ -70,7 +71,7 @@ const Main = () => {
             <div className="filter">
                 {UniqueTechs.map((tech) => (
                     <span>
-                            <a href="" onClick={(event) => handleFilterClick(event, '/'+ urlOption + '/' + tech)}>{tech}</a>
+                            {tech ? <a href="" onClick={(event) => handleFilterClick(event, '/'+ urlOption + '/' + tech)}>{tech}</a> : null}
                     </span>
                 ))}
             </div>
