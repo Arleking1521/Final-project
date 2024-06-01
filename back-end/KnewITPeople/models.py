@@ -21,7 +21,7 @@ class Person(models.Model):
         return f'{self.name}'
 
 class Tech(models.Model):
-    frame = models.TextField(default=None)
+    frame = models.TextField(default=None, null=True, blank=True)
     stack = models.CharField(max_length=128)
     def __str__(self) -> str:
         return f'{self.stack} | {self.frame}'
