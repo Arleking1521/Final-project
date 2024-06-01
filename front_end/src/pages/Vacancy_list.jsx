@@ -8,9 +8,9 @@ const Vacancy_list = () => {
     const combinedContext = useContext(CombinedContext);
     const navigate = useNavigate();
 
-    const { vacancies } = combinedContext.vacancies;
-    const { companies } = combinedContext.companies;
-    const { techs } = combinedContext.techs;
+    const  vacancies  = combinedContext.allDatas.Vacancies || [];
+    const  companies  = combinedContext.allDatas.Companies || [];
+    const  techs  = combinedContext.allDatas.Tech || [];
 
     const parametrs = useParams();
 
@@ -24,7 +24,7 @@ const Vacancy_list = () => {
 
     if(isEmptyObject(parametrs)){
         UniqueTechs = Array.from(new Set(techs.map(tech => tech.stack)));
-        urlOption = "stack";
+        urlOption = "vacancy/stack";
     }
     else{
         techs.forEach(tech => {
@@ -47,7 +47,7 @@ const Vacancy_list = () => {
     const handleFilterClick = (event, path) => {
         event.preventDefault(); // Предотвращаем переход по ссылке по умолчанию
         if(urlOption === "frame"){
-            navigate('/stack/' + parametrs.stack + path); // Переход на указанный путь
+            navigate('/vacancy/stack/' + parametrs.stack + path); // Переход на указанный путь
         }
         else{
             navigate(path);
@@ -63,7 +63,7 @@ const Vacancy_list = () => {
         <div className="main_blog">
             <span className="title_head">
                 {backButtonShow ? <button onClick={handleGoBack}><img src={back}/></button> : null}
-                <h1 className='title'>Наши Ученики</h1>
+                <h1 className='title'>Наши Вакансии</h1>
             </span>
             <div className="filter">
                 {UniqueTechs.map((tech) => (
@@ -74,7 +74,7 @@ const Vacancy_list = () => {
             </div>
             {/* <button onClick={handleNewClick}>New Post</button> */}
 
-            <VacancyList companies={companies} vacancies={vacancies} />
+            <VacancyList companies={companies} vacancies={vacancies} techs={techs} filter={parametrs}/>
         </div>
     );
 };

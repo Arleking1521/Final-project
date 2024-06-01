@@ -10,9 +10,16 @@ class TechAdmin(admin.ModelAdmin):
 class ClaimWorkAdmin(admin.ModelAdmin):
     filter_horizontal = ('stack_frame',)  # Множественный выбор для поля Frame
 
+class TechAdmin(admin.ModelAdmin):
+    pass
+
+class VacancyAdmin(admin.ModelAdmin):
+    filter_horizontal = ('stack_frame',)  # Множественный выбор для поля Frame
 
 admin.site.register(Person)
 admin.site.register(Tech, TechAdmin)
 admin.site.register(Claim_work, ClaimWorkAdmin)
 admin.site.register(soc_links)
 admin.site.register(certificates)
+admin.site.register(Company)
+admin.site.register(Vacancy, VacancyAdmin)

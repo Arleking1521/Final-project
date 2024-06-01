@@ -13,9 +13,9 @@ import {useParams} from "react-router";
 const Details = () => {
     const combinedContext = useContext(CombinedContext);
 
-    const persons = combinedContext.persons;
-    const works = combinedContext.works;
-    const techs = combinedContext.techs;
+    const persons = combinedContext.allDatas.Person || [];
+    const works  = combinedContext.allDatas.Work || [];
+    const techs = combinedContext.allDatas.Tech || [];
     const navigate = useNavigate();
 
     const { id } = useParams(); // Получаем параметр id из адреса страницы

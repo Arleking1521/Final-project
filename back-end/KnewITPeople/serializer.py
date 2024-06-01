@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import *
 
+
+
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
@@ -60,4 +62,49 @@ class CertificatesSerializer(serializers.ModelSerializer):
             'person',
         ]
 
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = [ 
+            'id', 
+            'name', 
+            'website', 
+            'photo', 
+            'place', 
+            'description',
+            'workers_count',
+            'activity_areas',
+            'vacancies_count',
+            ]
+        
 
+class VacancySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vacancy
+        fields = [ 
+            'id', 
+            'company', 
+            'name', 
+            'payment', 
+            'experience', 
+            'busyness',
+            'count_views', 
+            'title_desc', 
+            'description', 
+            'offers', 
+            'duties', 
+            'requirements',
+            'additionally', 
+            'skills', 
+            'stack_frame', 
+            'date', 
+            ]
+   
+class JobseekersSerializer(serializers.Serializer):
+    Person = PersonSerializer(many=True, read_only=True)
+    Work = ClaimWorkSerializer(many=True, read_only=True)
+    Tech = TechSerializer(many=True, read_only=True)
+    SocLinks = SocLinksSerializer(many=True, read_only=True)
+    Certificates = CertificatesSerializer(many=True, read_only=True)
+    Companies = CompanySerializer(many=True, read_only=True)
+    Vacancies = VacancySerializer(many=True, read_only=True)

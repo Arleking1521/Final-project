@@ -14,4 +14,6 @@ export const publicRoutes = [
     {path: '/vacancy/details/:id', element: details, exact: true},
     {path: '/stack/:stack', element:main, exact: true},
     {path: '/stack/:stack/frame/:frame', element:main, exact: true},
+    {path: '/vacancy/stack/:stack', element:Vacancy_list, exact: true},
+    {path: '/vacancy/stack/:stack/frame/:frame', element:Vacancy_list, exact: true},
 ]

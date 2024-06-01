@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.JobseekersView.as_view(), name='jobseekers_api'), 
     path('person/', views.PersonsView.as_view(), name='person_api'), 
     path('work/', views.ClaimWoeksView.as_view(), name='work_api'), 
     path('tech/', views.TechsView.as_view(), name='tech_api'),  
@@ -12,4 +13,9 @@ urlpatterns = [
     path('tech/<int:id>/', views.TechView.as_view(), name='tech_api_by_id'), 
     path('link/<int:id>/', views.LinkView.as_view(), name='link_api_by_id'), 
     path('certificate/<int:id>/', views.CertificateView.as_view(), name='certificate_api_by_id'), 
+    path('company/', views.CompaniesView.as_view(), name='person_api'), 
+    path('vacancy/', views.VacanciesView.as_view(), name='work_api'), 
+    path('company/<int:id>/', views.CompanyView.as_view(), name='person_api_by_id'), 
+    path('vacancy/<int:id>/', views.VacancyView.as_view(), name='work_api_by_id'), 
+    
 ]

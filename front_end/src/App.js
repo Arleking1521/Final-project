@@ -5,36 +5,22 @@ import "./style/style.css"
 import Footer from "./Components/Footer";
 import { useEffect, useState, useMemo, useCallback } from "react";
 import {useFetching} from "./hookes/useFetching";
-import PersonService from "./axios/PersonService";
-import ClaimWorkService from "./axios/ClaimWorkService";
-import TechService from "./axios/TechService";
+import APIService from "./axios/APIService";
 import {CombinedContext} from "./Context/context";
-import VacancyService from "./axios/VacancyService";
-import CompanyService from "./axios/CompanyService";
 
 
 
 
 function App() {
-    const [persons, setPersons] = useState([]);
-    const [works, setWorks] = useState([]);
-    const [techs, setTechs] = useState([]);
-    const [vacancies, setVacancy] = useState([]);
-    const [companies, setCompany] = useState([]);
-
-    const [fetchPersons] = useFetching(async () => setPersons(await PersonService.getAll()));
-    const [fetchWorks] = useFetching(async () => setWorks(await ClaimWorkService.getAll()));
-    const [fetchTechs] = useFetching(async () => setTechs(await TechService.getAll()));
-    const [fetchVacancy] = useFetching(async () => setVacancy(await VacancyService.getAll()));
-    const [fetchCompany] = useFetching(async () => setCompany(await CompanyService.getAll()));
+    const [allDatas, setAllDatas] = useState([]);
+    
+    const [fetchAllDatas] = useFetching(async () => setAllDatas(await APIService.getAll()));
+   
 
     const loadData = useCallback(() => {
-        fetchPersons();
-        fetchWorks();
-        fetchTechs();
-        fetchVacancy();
-        fetchCompany();
-    }, [fetchPersons, fetchWorks, fetchTechs, fetchVacancy, fetchCompany]);
+        fetchAllDatas();
+       
+    }, [fetchAllDatas]);
 
     useEffect(() => {
         try {
@@ -45,20 +31,8 @@ function App() {
     }, []);
 
     
-    
     return (
-        <CombinedContext.Provider value={{
-            persons,
-            setPersons,
-            works,
-            setWorks,
-            techs,
-            setTechs,
-            vacancies,
-            setVacancy,
-            companies,
-            setCompany
-        }}>
+        <CombinedContext.Provider value={{ allDatas, setAllDatas }}>
             <BrowserRouter>
                 <Header />
                 <div className="main">

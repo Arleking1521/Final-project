@@ -10,10 +10,11 @@ const Main = () => {
     const combinedContext = useContext(CombinedContext);
     const navigate = useNavigate();
 
-    const persons = combinedContext.persons;
-    const works  = combinedContext.works;
-    const techs = combinedContext.techs;
+    const persons = combinedContext.allDatas.Person || [];
+    const works  = combinedContext.allDatas.Work || [];
+    const techs = combinedContext.allDatas.Tech || [];
     
+
     const parametrs = useParams();
 
     let UniqueTechs = [];
@@ -61,6 +62,7 @@ const Main = () => {
         navigate('/');
     };
 
+    console.log("Person : ", techs);
 
     return (
         <div className="main_blog">
@@ -71,7 +73,7 @@ const Main = () => {
             <div className="filter">
                 {UniqueTechs.map((tech) => (
                     <span>
-                            {tech ? <a href="" onClick={(event) => handleFilterClick(event, '/'+ urlOption + '/' + tech)}>{tech}</a> : null}
+                            <a href="" onClick={(event) => handleFilterClick(event, '/'+ urlOption + '/' + tech)}>{tech}</a>
                     </span>
                 ))}
             </div>
