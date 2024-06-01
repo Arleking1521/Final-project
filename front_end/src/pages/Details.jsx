@@ -7,21 +7,15 @@ import wpp from "../assets/icons8-whatsapp-50.png"
 import git from "../assets/icons8-github-50.png"
 import inst from "../assets/icons8-instagram-30.png"
 import li from "../assets/icons8-линкедин-50.png"
-import {
-    PersonContext,
-    TechContext,
-    WorkContext
-} from "../Context/context";
+import {CombinedContext} from "../Context/context";
 import {useParams} from "react-router";
 
 const Details = () => {
-    const personsContext = useContext(PersonContext);
-    const workContext = useContext(WorkContext);
-    const techContext = useContext(TechContext);
+    const combinedContext = useContext(CombinedContext);
 
-    const { persons } = personsContext;
-    const { works } = workContext;
-    const { techs } = techContext;
+    const persons = combinedContext.persons;
+    const works = combinedContext.works;
+    const techs = combinedContext.techs;
     const navigate = useNavigate();
 
     const { id } = useParams(); // Получаем параметр id из адреса страницы

@@ -1,19 +1,19 @@
 import React, { useContext } from 'react';
 import PostsList from '../Components/PostsList';
-import { useNavigate, useParams, Link} from 'react-router-dom';
-import { PersonContext, TechContext, WorkContext } from '../Context/context';
+import { useNavigate, useParams } from 'react-router-dom';
+import { CombinedContext } from '../Context/context';
 import back from "../assets/back-button.png"
 
+
 const Main = () => {
-    const personsContext = useContext(PersonContext);
-    const workContext = useContext(WorkContext);
-    const techContext = useContext(TechContext);
+    
+    const combinedContext = useContext(CombinedContext);
     const navigate = useNavigate();
 
-    const { persons } = personsContext;
-    const { works } = workContext;
-    const { techs } = techContext;
-
+    const persons = combinedContext.persons;
+    const works  = combinedContext.works;
+    const techs = combinedContext.techs;
+    
     const parametrs = useParams();
 
     let UniqueTechs = [];
@@ -45,7 +45,7 @@ const Main = () => {
     const handleNewClick = () => {
         navigate(`/newperson`);
     };
-
+    
     const handleFilterClick = (event, path) => {
         event.preventDefault(); // Предотвращаем переход по ссылке по умолчанию
         if(urlOption === "frame"){
