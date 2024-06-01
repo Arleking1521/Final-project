@@ -73,7 +73,7 @@ const Main = () => {
             <div className="filter">
                 {UniqueTechs.map((tech) => (
                     <span>
-                            <a href="" onClick={(event) => handleFilterClick(event, '/'+ urlOption + '/' + tech)}>{tech}</a>
+                            {tech ? <a href="" onClick={(event) => handleFilterClick(event, '/'+ urlOption + '/' + tech)}>{tech}</a> : null}
                     </span>
                 ))}
             </div>
