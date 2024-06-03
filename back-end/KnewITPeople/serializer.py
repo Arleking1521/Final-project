@@ -17,6 +17,8 @@ class PersonSerializer(serializers.ModelSerializer):
             'languages',
             'work_ex',
             'certificate_knewit',
+            'certificates',
+            'personal_qualities',
             ]
         
 
@@ -28,7 +30,6 @@ class ClaimWorkSerializer(serializers.ModelSerializer):
             'person', 
             'title', 
             'stack_frame', 
-            'desired_salary', 
             'skills',
             ]
         
@@ -39,6 +40,7 @@ class TechSerializer(serializers.ModelSerializer):
             'id',
             'frame',
             'stack',
+            'click_counter',
         ]
 
 class SocLinksSerializer(serializers.ModelSerializer):
@@ -50,7 +52,7 @@ class SocLinksSerializer(serializers.ModelSerializer):
             'instagram',
             'WPP',
             'Github',
-            'twitter',
+            'linkedIn',
             'resume',
         ]
 class CertificatesSerializer(serializers.ModelSerializer):
@@ -59,7 +61,6 @@ class CertificatesSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'file',
-            'person',
         ]
 
 class CompanySerializer(serializers.ModelSerializer):

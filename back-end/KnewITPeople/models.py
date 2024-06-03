@@ -3,52 +3,9 @@ from django.db import models
 from PIL import Image
 from django.utils import timezone
 
-class Person(models.Model):
-    name = models.CharField(max_length=128)
-    age = models.IntegerField(default=0)
-    phone = models.TextField(default=None)
-    email = models.TextField(default=None)
-    photo = models.FileField(upload_to='photo/jobseekers/', default=None, null=True, blank=True)
-    living_place = models.TextField(default=None)
-    languages= models.TextField(default=None)
-    work_ex = models.TextField(default=None, null=True, blank=True)
-    certificate_knewit = models.BooleanField(default=False)
-    def save(self, *args, **kwargs):
-        # Проверяем, было ли предоставлено изображение
-        if not self.photo:
-            self.photo = None
-        super().save(*args, **kwargs)
-    def __str__(self) -> str:
-        return f'{self.name}'
-
-class Tech(models.Model):
-    frame = models.TextField(default=None, null=True, blank=True)
-    stack = models.CharField(max_length=128)
-    def __str__(self) -> str:
-        return f'{self.stack} | {self.frame}'
-
-class Claim_work(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, default=None)
-    title = models.CharField(max_length=128)
-    stack_frame = models.ManyToManyField('Tech', related_name='claim_works_frame')
-    desired_salary = models.IntegerField(default=0)
-    skills = models.TextField(default=None)
-    def __str__(self) -> str:
-        return f'{self.title}: {self.stack_frame}'
-
-class soc_links(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    instagram = models.TextField(default=None)
-    WPP = models.TextField(default=None)
-    Github = models.TextField(default=None)
-    twitter = models.TextField(default=None)
-    resume = models.FileField(upload_to='resume/', default=None)
-    def __str__(self) -> str:
-        return f'{self.person.name}'
-
 class certificates(models.Model):
     file = models.FileField(upload_to='certificates/', default=None)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    person_name = models.CharField(max_length=128, default="Unknown")
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
@@ -60,7 +17,54 @@ class certificates(models.Model):
 
 
     def __str__(self) -> str:
+        return f'{self.person_name}'
+
+class Person(models.Model):
+    name = models.CharField(max_length=128)
+    age = models.IntegerField(default=0)
+    phone = models.TextField(default=None)
+    email = models.TextField(default=None)
+    photo = models.FileField(upload_to='photo/jobseekers/', default=None, null=True, blank=True)
+    living_place = models.TextField(default=None)
+    languages= models.TextField(default=None)
+    work_ex = models.TextField(default=None, null=True, blank=True)
+    personal_qualities = models.TextField(default=None, null=True, blank=True)
+    certificate_knewit = models.BooleanField(default=False)
+    certificates = models.ManyToManyField('certificates', related_name='certificates_person')
+    def save(self, *args, **kwargs):
+        # Проверяем, было ли предоставлено изображение
+        if not self.photo:
+            self.photo = None
+        super().save(*args, **kwargs)
+    def __str__(self) -> str:
+        return f'{self.name}'
+
+class Tech(models.Model):
+    frame = models.TextField(default=None, null=True, blank=True)
+    stack = models.CharField(max_length=128)
+    click_counter = models.BigIntegerField( default=0, blank=True)
+    def __str__(self) -> str:
+        return f'{self.stack} | {self.frame}'
+
+class Claim_work(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, default=None)
+    title = models.CharField(max_length=128)
+    stack_frame = models.ManyToManyField('Tech', related_name='claim_works_frame')
+    skills = models.TextField(default=None)
+    def __str__(self) -> str:
+        return f'{self.title}: {self.stack_frame}'
+
+class soc_links(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    instagram = models.TextField(default=None, blank=True)
+    WPP = models.TextField(default=None, blank=True)
+    Github = models.TextField(default=None, blank=True)
+    linkedIn = models.TextField(default=None, blank=True, null=True)
+    resume = models.FileField(upload_to='resume/', default=None, blank=True)
+    def __str__(self) -> str:
         return f'{self.person.name}'
+
+
 
 class Company(models.Model):
     name = models.CharField(max_length=128)

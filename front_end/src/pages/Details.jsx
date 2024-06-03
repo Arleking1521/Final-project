@@ -16,14 +16,25 @@ const Details = () => {
     const persons = combinedContext.allDatas.Person || [];
     const works  = combinedContext.allDatas.Work || [];
     const techs = combinedContext.allDatas.Tech || [];
+    const soc_links = combinedContext.allDatas.SocLinks || [];
+    const certificates = combinedContext.allDatas.Certificates || [];
     const navigate = useNavigate();
 
     const { id } = useParams(); // Получаем параметр id из адреса страницы
     const person = persons.find((p) => p.id === Number(id));
+    const work = works.find((w) => w.person === Number(id));
+    const soc_link = soc_links.find((sl) => sl.person === Number(id));
     const backButtonClick = () => {
         navigate(`/`);
     };
 
+    const handleFilterClick = (event, path) => {
+        event.preventDefault(); // Предотвращаем переход по ссылке по умолчанию
+        console.log(path);
+        navigate(path); // Переход на указанный путь
+      };
+
+    console.log("Person: ", certificates);
     return (
         <div className="main_blog">
             <span className="title_head">
@@ -35,54 +46,91 @@ const Details = () => {
                     <div className="photo">
                         <img src={person && person.photo ? person.photo : logo }/>
                     </div>
-                    <div className="socials">
-                        <div className="resume">
-                            <a className="social" href="">Резюме на <img src={hh}/></a>
+                    {soc_link ? (
+                        <div className="socials">
+                            <div className="resume">
+                                {soc_link.resume && (
+                                    <a className="social" href={soc_link.resume}>Резюме на <img src={hh} alt="HH" /></a>
+                                )}
+                            </div>
+                            
+                            <div className="social_list">
+                                {soc_link.WPP && (
+                                    <a href={"https://wa.me/" + soc_link.WPP} className="social"><img src={wpp} alt="WhatsApp" /></a>
+                                )}
+                                {soc_link.Github && (
+                                    <a href={"https://github.com/" + soc_link.Github} className="social"><img src={git} alt="GitHub" /></a>
+                                )}
+                                {soc_link.linkedin && (
+                                    <a href={soc_link.linkedin} className="social"><img src={li} alt="LinkedIn" /></a>
+                                )}
+                                {soc_link.instagram && (
+                                    <a href={"https://www.instagram.com/" + soc_link.instagram} className="social"><img src={inst} alt="Instagram" /></a>
+                                )}
+                            </div>
                         </div>
-                        <div className="social_list">
-                            <a href="" className="social"><img src={wpp}/></a>
-                            <a href="" className="social"><img src={git}/></a>
-                            <a href="" className="social"><img src={li}/></a>
-                            <a href="" className="social"><img src={inst}/></a>
-                        </div>
-                    </div>
+                    ) : (
+                        <></>
+                    )}
                 </div>
-                <div className="profile_info">
-                    <div className="info_h detail_info">
-                        <p className="tech">Front-End</p>
-                        {person ? (
+                
+                    
+                {work ? 
+                    (
+                        
+                        person ? (
                             <>
-                                <p className="p_fio">{person.name}</p>
-                                <p className="p_age">{person.age} года</p>
+                                <div className="profile_info">
+                                    <div className="info_h detail_info">
+                                        <p className="tech">{work.title}</p>
+                                        <p className="p_fio">{person.name}</p>
+                                        <p className="p_age">{person.age} года</p>
+                                        <span className="skills">
+                                        {work.stack_frame.map((fr) =>{
+                                            return(
+                                                techs.map((tech) =>{
+                                                    return(
+                                                        tech.id == fr ? <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/stack/'+ tech.stack+ '/frame/' + tech.frame)}>{tech.frame}</a> : null
+                                                    );
+                                                })
+                                            );
+                                            })}
+                                        </span>
+                                    </div>
+                                    <div className="personal_info">
+                                        <p><span>-Навыки: </span>{work.skills}</p>
+                                        <p><span>-Личные качества: </span>{person.personal_qualities}</p>
+                                        {person ? (
+                                            <>
+                                                <p><span>-Знание языков: </span>{person.languages}</p>
+                                                {person.work_ex !== "null"? <p><span>-Опыт работы: </span>{person.work_ex}</p> : <></>}
+                                                <p><span>-Телефон: </span>{person.phone}</p>
+                                                <p><span>-Email: </span>{person.email}</p>
+                                            </>
+                                        ) : (
+                                            <p>Loading...</p>
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="profile_cert">
+                                    {person.certificates.map((pcert) =>{
+                                        return(
+                                            certificates.map((ccert) =>{
+                                                return(
+                                                    ccert.id == pcert ? <img src={ccert.file}/> : null
+                                                );
+                                            })
+                                        );
+                                    })}
+                                </div>
                             </>
-                        ) : (
-                            <p>Loading...</p>
-                        )}
-                        <span className="skills">
-                            <a href="">HTML/CSS</a>
-                            <a href="">HTML/CSS</a>
-                            <a href="">HTML/CSS</a>
-                            <a href="">HTML/CSS</a>
-                        </span>
-                    </div>
-                    <div className="personal_info">
-                        <p><span>-Навыки:</span></p>
-                        <p><span>-Личные качества:</span></p>
-                        {person ? (
-                            <>
-                                <p><span>-Знание языков: {person.languages}</span></p>
-                                {person.work_ex !== "null"? <p><span>-Опыт работы: {person.work_ex}</span></p> : <></>}
-                                <p><span>-Телефон: {person.phone}</span></p>
-                                <p><span>-Email: {person.email}</span></p>
-                            </>
-                        ) : (
-                            <p>Loading...</p>
-                        )}
-                    </div>
-                </div>
-                <div className="profile_cert">
-
-                </div>
+                        ): 
+                        (
+                            <></>
+                        )
+                    ):
+                    (<p>Loading...</p>)
+                }
             </div>
         </div>
     );

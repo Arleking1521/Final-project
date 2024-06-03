@@ -438,6 +438,10 @@ body{
     width: 25%;
 }
 
+.profile_cert img{
+    width: 100%;
+}
+
 .detail_info{
     flex-direction: column !important;
     align-items: start !important;
