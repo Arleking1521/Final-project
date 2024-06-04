@@ -81,7 +81,7 @@ const Details = () => {
                             <>
                                 <div className="profile_info">
                                     <div className="info_h detail_info">
-                                        <p className="tech">{work.title}</p>
+                                        <p className="tech-inner">{work.title}</p>
                                         <p className="p_fio">{person.name}</p>
                                         <p className="p_age">{person.age} года</p>
                                         <span className="skills">

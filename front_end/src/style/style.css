@@ -30,6 +30,12 @@ body{
     margin: 5px 0;
 }
 
+.tech-inner{
+    font-size: 40px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
 .p_fio{
     font-size: 16px;
     margin: 5px 0 0 0;
@@ -50,6 +56,21 @@ body{
 
 .skills{
     margin: 5px 0 !important;
+}
+
+.skill {
+    margin: 0 5px;
+    color: #5A49F8;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.sub-card{
+    background-color: white;
+    box-shadow: 0px 0px 50px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    margin: 30px 0;
+    padding: 20px 30px;
 }
 
 .personal_info p{
@@ -214,6 +235,24 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.ans-but{
+    width: 100%;
+    padding: 10px 0;
+    background: linear-gradient(#49A4F8, #5A49F8);
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 0px 0px 20px 20px;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.ans-but:hover{
+    filter: brightness(120%);
 }
 
 .conf{
@@ -416,14 +455,46 @@ body{
     margin: 5px !important;
 }
 
-.vacancy_info{
+.vacancy-card{
     background-color: white;
     box-shadow: 0px 0px 50px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
+    border-radius: 20px 20px 0 0;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 30px 0;
+    margin: 30px 0 0 0;
+    justify-content: space-between;
+}
+
+.vacancy_info{
+    padding: 10px 20px;
+    width: 45%;
+}
+
+.company_info{
+    padding: 10px 20px;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: flex-start;
+}
+
+.company_info_inner{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.extra{
+    margin: 5px 0px;
+}
+
+.payment{
+    color: #5A49F8;
+    font-size: 18px;
 }
 
 .photo{
@@ -449,6 +520,28 @@ body{
 .photo img{
     width: 100%;
 }
+
+.vacancy_pic{
+    aspect-ratio: 1/1;
+    width: 50%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+}
+
+.company_adress{
+    text-align: center;
+}
+
+.company_name{
+    color: #5A49F8;
+    font-size: 24px;
+    cursor: pointer;
+    margin-top: 10px;
+
+}
+
 .profile{
     align-self: flex-start;
     width: 25%;

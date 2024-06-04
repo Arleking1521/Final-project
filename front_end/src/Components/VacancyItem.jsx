@@ -1,10 +1,10 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from '../assets/logo2.png'
 import verified from "../assets/icons8-проверено-50.png"
 import VacancyService from "../axios/VacancyService";
 
-const VacancyItem = ({company, vacancy, techs}) => {
+const VacancyItem = ({ company, vacancy, techs }) => {
     const navigate = useNavigate();
 
     const handleFilterClick = (event, path) => {
@@ -33,21 +33,25 @@ const VacancyItem = ({company, vacancy, techs}) => {
     };
     return (
         <div className="card">
-            <div className="avatar">
-                <img src={company.photo == null ? logo : company.photo} alt={company.name} />
-            </div>
+            <div className="avatar" style={{ backgroundImage: `url(${company.photo == null ? logo : company.photo})` }}></div>
             <div className="info">
                 <div className="info_h">
                     <p className="tech">{vacancy.name}</p>
                     <span>
-                        {vacancy.stack_frame.map((fr) =>{
-                        return(
-                            techs.map((tech) =>{
-                                return(
-                                    tech.id == fr ? <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/vacancy/stack/'+ tech.stack+ '/frame/' + tech.frame)}>{tech.frame}</a> : null
-                                );
-                            })
-                        );
+                        {vacancy.stack_frame.map((fr) => {
+                            return (
+                                techs.map((tech) => {
+                                    return (
+                                        tech.id == fr ?
+                                            (tech.frame == "" ?
+                                                <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/stack/' + tech.stack)}>{tech.stack}</a>
+                                                :
+                                                <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/stack/' + tech.stack + '/frame/' + tech.frame)}>{tech.frame}</a>)
+                                            :
+                                            null
+                                    );
+                                })
+                            );
                         })}
                     </span>
                 </div>
@@ -59,13 +63,13 @@ const VacancyItem = ({company, vacancy, techs}) => {
             </div>
             <div className="conf-but">
                 <div className="conf">
-                    
+
                 </div>
                 <a href="" onClick={handleDetailsClick} className="more-but">ПОДРОБНЕЕ...</a>
                 {/* <button onClick={handleDeleteClick} className="btn">
                     Delete
                 </button>  */}
-               
+
             </div>
         </div>
     );

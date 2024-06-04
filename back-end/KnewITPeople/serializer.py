@@ -96,7 +96,6 @@ class VacancySerializer(serializers.ModelSerializer):
             'duties', 
             'requirements',
             'additionally', 
-            'skills', 
             'stack_frame', 
             'date', 
             ]

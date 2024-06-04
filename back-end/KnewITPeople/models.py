@@ -87,9 +87,9 @@ class Company(models.Model):
 class Vacancy(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField( max_length=128)
-    payment = models.CharField(default=None, blank=True, null=True)
-    experience = models.CharField(default='Without')
-    busyness = models.CharField(default='None')
+    payment = models.CharField(default="Уровень дохода не указан", blank=True, null=True)
+    experience = models.CharField(default='Без опыта')
+    busyness = models.CharField()
     count_views = models.IntegerField(default=0)
     title_desc = models.CharField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
@@ -97,7 +97,6 @@ class Vacancy(models.Model):
     duties = models.TextField()
     requirements = models.TextField(default=None)
     additionally = models.TextField(default=None, blank=True, null=True)
-    skills = models.CharField()
     stack_frame = models.ManyToManyField(Tech, related_name='vacancy_frame')
     date = models.DateTimeField(default=timezone.now, verbose_name='Date')
 

@@ -19,8 +19,10 @@ const DetailsCompany = () => {
     const navigate = useNavigate();
 
     const { id } = useParams(); // Получаем параметр id из адреса страницы
-    const vacancy = vacancies.find((v) => v.id === Number(id));
-    const company = companies.find((c) => c.id === Number(vacancy.company));
+    const company = companies.find((c) => c.id === Number(id));
+    const vacancy_list = vacancies.filter(v => v.company === company.id);
+
+    console.log(vacancy_list)
     const backButtonClick = () => {
         navigate(`/vacancy/`);
     };
@@ -33,55 +35,9 @@ const DetailsCompany = () => {
                 <p> О Компании</p>
             </span>
                 {company ? (
-                <>
-                    <div className="card">
-                        <div className="profile">
-                            <div className="photo">
-                                <img src={company && company.photo ? company.photo : logo }/>
-                            </div>
-                            
-                        </div>
-                        <div className="profile_info">
-                            <div className="info_h detail_info">
-                                <p className="tech">{company.name}</p>
-                                <p className="p_fio">{vacancy.payment}</p>
-                                <p className="p_age">Требуемый опыт работы : {vacancy.experience}</p>
-                                <p className="p_age">{vacancy.busyness}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <div className="profile_info">
-                            <div className="personal_info">
-                                <p><span> {vacancy.title_desc}</span></p>
-                                <p>{vacancy.description} </p>
-                                <p><span> Что мы предлагаем: </span> </p>
-                                <ul>
-                                    {vacancy.offers.split('\n').map((offer) => {
-                                            return(
-                                                <li>{offer}</li>
-                                            );})}
-                                </ul>
-                                <p><span> У нас вы будете заниматься: </span> </p>
-                                <ul>
-                                    {vacancy.duties.split('\n').map((duty) => {
-                                            return(
-                                                <li>{duty}</li>
-                                            );})}
-                                </ul>
-                                <p><span> Требования: </span> </p>
-                                <ul>
-                                    {vacancy.requirements.split('\n').map((requirement) => {
-                                            return(
-                                                <li>{requirement}</li>
-                                            );})}
-                                </ul>
-                                <p><span> {vacancy.additionally} </span> </p>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </>
+                <div>
+                    <p>{company.name}</p>
+                </div>
             ): 
             (
                 <></>
