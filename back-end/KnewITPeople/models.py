@@ -99,6 +99,21 @@ class Vacancy(models.Model):
     skills = models.CharField()
     stack_frame = models.ManyToManyField(Tech, related_name='vacancy_frame')
     date = models.DateTimeField(default=timezone.now, verbose_name='Date')
+
+    def save(self, *args, **kwargs):
+        # Увеличиваем счетчик вакансий у компании при создании новой вакансии
+        if not self.pk:  # Если вакансия еще не была сохранена
+            self.company.vacancies_count += 1
+            self.company.save()
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        # Уменьшаем счетчик вакансий у компании при удалении вакансии
+        company = self.company
+        super().delete(*args, **kwargs)
+        company.vacancies_count -= 1
+        company.save()
+
     def __str__(self) -> str:
         return f'{self.name}'
     

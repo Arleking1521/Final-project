@@ -4,10 +4,17 @@ import logo from '../assets/logo2.png'
 import verified from "../assets/icons8-проверено-50.png"
 import VacancyService from "../axios/VacancyService";
 
-const VacancyItem = ({company, vacancy}) => {
+const VacancyItem = ({company, vacancy, techs}) => {
     const navigate = useNavigate();
+
+    const handleFilterClick = (event, path) => {
+        event.preventDefault(); // Предотвращаем переход по ссылке по умолчанию
+        console.log(path);
+        navigate(path); // Переход на указанный путь
+    };
+
     const handleDetailsClick = () => {
-        navigate(`/details/${vacancy.id}`);
+        navigate(`/vacancy/details/${vacancy.id}`);
     };
 
     const handleDeleteClick = () => {
@@ -32,29 +39,28 @@ const VacancyItem = ({company, vacancy}) => {
             <div className="info">
                 <div className="info_h">
                     <p className="tech">{vacancy.name}</p>
-                    {/* <span>
-                        {work.frame.split(',').map((fr) =>{
+                    <span>
+                        {vacancy.stack_frame.map((fr) =>{
                         return(
-                            <a href="" key={fr}>{fr}</a>
+                            techs.map((tech) =>{
+                                return(
+                                    tech.id == fr ? <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/vacancy/stack/'+ tech.stack+ '/frame/' + tech.frame)}>{tech.frame}</a> : null
+                                );
+                            })
                         );
                         })}
-                    </span> */}
+                    </span>
                 </div>
-                {/* <p className="p_fio">{person.name}</p>
-                <p className="p_info">{work.skills}</p> */}
+                <p className="p_fio">{vacancy.payment} {vacancy.experience} </p>
+                <p className="p_info">{company.name}</p>
+                <div>
+                    <p className="p_info">{vacancy.description}</p>
+                </div>
             </div>
             <div className="conf-but">
-                {/* <div className="conf">
-                    {person.certificate_knewit ?
-                        <span className="conf_info">
-                            <p className="p_cert">имеет сертификат <b>KnewIT</b></p>
-                            <div>
-                                <img src={verified} alt="" srcSet=""/>
-                            </div>
-                        </span>
-                        :
-                    null}
-                </div> */}
+                <div className="conf">
+                    
+                </div>
                 <a href="" onClick={handleDetailsClick} className="more-but">ПОДРОБНЕЕ...</a>
                 {/* <button onClick={handleDeleteClick} className="btn">
                     Delete
