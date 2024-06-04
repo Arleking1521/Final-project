@@ -303,52 +303,6 @@ class CompanyView(APIView):
             return JsonResponse({"error": "Company with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
         
 
-# Vacancies views
-class VacanciesView(APIView):
-    def get(self, request):
-        vacancies = Vacancy.objects.all()
-        serializer = VacancySerializer(vacancies, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
-    def post(self, request):
-        serializer = VacancySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class VacancyView(APIView):
-    def get(self, request, id):  
-        try:
-            vacancy = Vacancy.objects.get(id=id)
-            serializer = CompanySerializer(vacancy)
-            return JsonResponse(serializer.data)
-        except Company.DoesNotExist:
-            return JsonResponse({"error": "Vacancy with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
-    
-    def put(self, request, id):
-        try:
-            vacancy = Vacancy.objects.get(id=id)
-            serializer = VacancySerializer(vacancy, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return JsonResponse(serializer.data)
-            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Vacancy.DoesNotExist:
-            return JsonResponse({"error": "Vacancy with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    def delete(self, request, id):
-        try:
-            vacancy = Vacancy.objects.get(id=id)
-            # Удаление связанного фото с хранилища
-            
-
-            vacancy.delete()
-            return JsonResponse({"message": "Vacancy deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-        except Vacancy.DoesNotExist:
-            return JsonResponse({"error": "Vacancy with this ID not found"}, status=status.HTTP_404_NOT_FOUND)
-        
-
 class JobseekersView(APIView):
     def get(self, request, *args, **kwargs):
         data = {

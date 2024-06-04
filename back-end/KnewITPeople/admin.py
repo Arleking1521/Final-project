@@ -18,9 +18,6 @@ class TechAdmin(admin.ModelAdmin):
 class ClaimWorkAdmin(admin.ModelAdmin):
     filter_horizontal = ('stack_frame',)  # Множественный выбор для поля Frame
 
-class VacancyAdmin(admin.ModelAdmin):
-    filter_horizontal = ('stack_frame',)  # Множественный выбор для поля Frame
-
 class CertificatesAdmin(admin.ModelAdmin):
     pass
 
@@ -33,4 +30,3 @@ admin.site.register(Claim_work, ClaimWorkAdmin)
 admin.site.register(soc_links)
 admin.site.register(certificates, CertificatesAdmin)
 admin.site.register(Company)
-admin.site.register(Vacancy, VacancyAdmin)

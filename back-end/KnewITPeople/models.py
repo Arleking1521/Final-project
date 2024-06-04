@@ -31,6 +31,7 @@ class Person(models.Model):
     work_ex = models.TextField(default=None, null=True, blank=True)
     personal_qualities = models.TextField(default=None, null=True, blank=True)
     certificate_knewit = models.BooleanField(default=False)
+    company_employee = models.CharField(default=None, blank=True, null=True)
     certificates = models.ManyToManyField('certificates', related_name='certificates_person', blank=True)
     def save(self, *args, **kwargs):
         # Проверяем, было ли предоставлено изображение
@@ -83,37 +84,3 @@ class Company(models.Model):
         super().save(*args, **kwargs)
     def __str__(self) -> str:
         return f'{self.name}'
-    
-class Vacancy(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    name = models.CharField( max_length=128)
-    payment = models.CharField(default="Уровень дохода не указан", blank=True, null=True)
-    experience = models.CharField(default='Без опыта')
-    busyness = models.CharField()
-    count_views = models.IntegerField(default=0)
-    title_desc = models.CharField(null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
-    offers = models.TextField()
-    duties = models.TextField()
-    requirements = models.TextField(default=None)
-    additionally = models.TextField(default=None, blank=True, null=True)
-    stack_frame = models.ManyToManyField(Tech, related_name='vacancy_frame')
-    date = models.DateTimeField(default=timezone.now, verbose_name='Date')
-
-    def save(self, *args, **kwargs):
-        # Увеличиваем счетчик вакансий у компании при создании новой вакансии
-        if not self.pk:  # Если вакансия еще не была сохранена
-            self.company.vacancies_count += 1
-            self.company.save()
-        super().save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        # Уменьшаем счетчик вакансий у компании при удалении вакансии
-        company = self.company
-        super().delete(*args, **kwargs)
-        company.vacancies_count -= 1
-        company.save()
-
-    def __str__(self) -> str:
-        return f'{self.name}'
-    

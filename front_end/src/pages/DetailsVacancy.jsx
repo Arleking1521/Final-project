@@ -36,8 +36,6 @@ const DetailsVacancy = () => {
         navigate(`/company/details/${company.id}`);
     };
 
-    console.log(vacancy)
-
 
     return (
         <div className="main_blog">

@@ -19,6 +19,7 @@ class PersonSerializer(serializers.ModelSerializer):
             'certificate_knewit',
             'certificates',
             'personal_qualities',
+            'company_employee',
             ]
         
 
@@ -78,27 +79,6 @@ class CompanySerializer(serializers.ModelSerializer):
             'vacancies_count',
             ]
         
-
-class VacancySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Vacancy
-        fields = [ 
-            'id', 
-            'company', 
-            'name', 
-            'payment', 
-            'experience', 
-            'busyness',
-            'count_views', 
-            'title_desc', 
-            'description', 
-            'offers', 
-            'duties', 
-            'requirements',
-            'additionally', 
-            'stack_frame', 
-            'date', 
-            ]
    
 class JobseekersSerializer(serializers.Serializer):
     Person = PersonSerializer(many=True, read_only=True)
@@ -107,4 +87,3 @@ class JobseekersSerializer(serializers.Serializer):
     SocLinks = SocLinksSerializer(many=True, read_only=True)
     Certificates = CertificatesSerializer(many=True, read_only=True)
     Companies = CompanySerializer(many=True, read_only=True)
-    Vacancies = VacancySerializer(many=True, read_only=True)
