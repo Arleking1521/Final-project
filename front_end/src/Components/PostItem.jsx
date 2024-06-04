@@ -13,7 +13,7 @@ const PostItem = ({person, work, techs}) => {
         navigate(path); // Переход на указанный путь
       };
     const handleDetailsClick = () => {
-        navigate(`/details/${person.id}`);
+        navigate(`/details/${work.id}`);
     };
 
     const handleDeleteClick = () => {
@@ -33,8 +33,7 @@ const PostItem = ({person, work, techs}) => {
 
     return (
         <div className="card">
-            <div className="avatar">
-                <img src={person.photo == null ? logo : person.photo} alt={person.name} />
+            <div className="avatar" style={{ backgroundImage: `url(${person.photo == null ? logo : person.photo})` }}>
             </div>
             <div className="info">
                 <div className="info_h">
@@ -44,7 +43,13 @@ const PostItem = ({person, work, techs}) => {
                         return(
                             techs.map((tech) =>{
                                 return(
-                                    tech.id == fr ? <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/stack/'+ tech.stack+ '/frame/' + tech.frame)}>{tech.frame}</a> : null
+                                    tech.id == fr ? 
+                                    (tech.frame == "" ? 
+                                    <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/stack/'+ tech.stack)}>{tech.stack}</a>
+                                    :
+                                    <a href="" key={tech.id} onClick={(event) => handleFilterClick(event, '/stack/'+ tech.stack+ '/frame/' + tech.frame)}>{tech.frame}</a>)
+                                    :
+                                     null
                                 );
                             })
                         );

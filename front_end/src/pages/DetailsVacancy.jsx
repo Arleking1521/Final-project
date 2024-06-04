@@ -47,18 +47,22 @@ const DetailsVacancy = () => {
                     (
                         company ? (
                         <>
-                            <div className="card">
-                                <div className="profile">
-                                    <div className="photo">
-                                        <img src={company && company.photo ? company.photo : logo }/>
-                                    </div>
-                                    
+                            <div className="vacancy_info">
+                                <div>
+                                    <p>{vacancy.name}</p>
+                                    <p>{vacancy.payment == "" ? vacancy.payment : "Уровень дохода не указан"}</p>
+                                    <p>Требуемый опыт работы : {vacancy.experience}</p>
+                                    <p>{vacancy.busyness}</p>
+                                </div>
+                                
+                                {/* <div className="photo_vacancy">
+                                    <img src={company && company.photo ? company.photo : logo }/>
                                 </div>
                                 <div className="profile_info">
                                     <div className="info_h detail_info">
-                                        <p className="tech">{vacancy.name}</p>
                                         <p className="tech" onClick={handleDetailsClick}>{company.name}</p>
-                                        <p className="p_fio">{vacancy.payment}</p>
+                                        <p className="tech">{vacancy.name}</p>
+                                        
                                         <p className="p_age">Требуемый опыт работы : {vacancy.experience}</p>
                                         <p className="p_age">{vacancy.busyness}</p>
                                         <span className="skills">
@@ -75,7 +79,7 @@ const DetailsVacancy = () => {
                                             </p>
                                             </span>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="card">
                                 <div className="profile_info">

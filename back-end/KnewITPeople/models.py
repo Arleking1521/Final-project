@@ -6,6 +6,7 @@ from django.utils import timezone
 class certificates(models.Model):
     file = models.FileField(upload_to='certificates/', default=None)
     person_name = models.CharField(max_length=128, default="Unknown")
+    
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
@@ -30,7 +31,7 @@ class Person(models.Model):
     work_ex = models.TextField(default=None, null=True, blank=True)
     personal_qualities = models.TextField(default=None, null=True, blank=True)
     certificate_knewit = models.BooleanField(default=False)
-    certificates = models.ManyToManyField('certificates', related_name='certificates_person')
+    certificates = models.ManyToManyField('certificates', related_name='certificates_person', blank=True)
     def save(self, *args, **kwargs):
         # Проверяем, было ли предоставлено изображение
         if not self.photo:
@@ -56,7 +57,7 @@ class Claim_work(models.Model):
 
 class soc_links(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    instagram = models.TextField(default=None, blank=True)
+    telegram = models.TextField(default=None, blank=True)
     WPP = models.TextField(default=None, blank=True)
     Github = models.TextField(default=None, blank=True)
     linkedIn = models.TextField(default=None, blank=True, null=True)

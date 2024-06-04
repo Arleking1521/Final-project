@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import PostsList from '../Components/PostsList';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CombinedContext } from '../Context/context';
@@ -6,63 +6,44 @@ import back from "../assets/back-button.png"
 
 
 const Main = () => {
-    
     const combinedContext = useContext(CombinedContext);
-    const navigate = useNavigate();
-
     const persons = combinedContext.allDatas.Person || [];
     const works  = combinedContext.allDatas.Work || [];
     const techs = combinedContext.allDatas.Tech || [];
-    
-
-    const parametrs = useParams();
-
-    let UniqueTechs = [];
-    let urlOption;
-    let backButtonShow = false;
-
-    const isEmptyObject = (obj) => {
-        return Object.keys(obj).length === 0;
-      }
-
-    if(isEmptyObject(parametrs)){
-        UniqueTechs = Array.from(new Set(techs.map(tech => tech.stack)));
-        urlOption = "stack";
-    }
-    else{
-        techs.forEach(tech => {
-            if(tech.stack.toLowerCase() === parametrs.stack.toLowerCase()){
-                UniqueTechs.push(tech.frame);
-            }
-        });
-        urlOption = "frame";
-        backButtonShow = true;
-    }
-
-    const handleDetailsClick = () => {
-        navigate(``);
-    };
-
-    const handleNewClick = () => {
-        navigate(`/newperson`);
-    };
-    
-    const handleFilterClick = (event, path) => {
-        event.preventDefault(); // Предотвращаем переход по ссылке по умолчанию
-        if(urlOption === "frame"){
-            navigate('/stack/' + parametrs.stack + path); // Переход на указанный путь
+    const navigate = useNavigate();
+    const params = useParams();
+    console.log(CombinedContext.allDatas);
+    const UniqueTechs = useMemo(() => {
+        if (Object.keys(params).length === 0) {
+            return Array.from(new Set(techs.map(tech => tech.stack)));
+        } else {
+            return techs
+                .filter(tech => tech.stack.toLowerCase() === params.stack.toLowerCase())
+                .map(tech => tech.frame);
         }
-        else{
+    }, [params, techs]);
+
+    const urlOption = useMemo(() => {
+        return Object.keys(params).length === 0 ? "stack" : "frame";
+    }, [params]);
+
+    const backButtonShow = useMemo(() => {
+        return Object.keys(params).length !== 0;
+    }, [params]);
+
+    const handleFilterClick = (event, path) => {
+        event.preventDefault();
+        if (urlOption === "frame") {
+            navigate(`/stack/${params.stack}${path}`);
+        } else {
             navigate(path);
         }
-      };
-
+    };
 
     const handleGoBack = () => {
         navigate('/');
     };
 
-    console.log("Person : ", techs);
 
     return (
         <div className="main_blog">
@@ -79,7 +60,7 @@ const Main = () => {
             </div>
             {/* <button onClick={handleNewClick}>New Post</button> */}
 
-            <PostsList persons={persons} works={works} techs={techs} filter={parametrs}/>
+            <PostsList persons={persons} works={works} techs={techs} filter={params}/>
         </div>
     );
 };

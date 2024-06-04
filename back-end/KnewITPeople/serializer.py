@@ -49,7 +49,7 @@ class SocLinksSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'person',
-            'instagram',
+            'telegram',
             'WPP',
             'Github',
             'linkedIn',

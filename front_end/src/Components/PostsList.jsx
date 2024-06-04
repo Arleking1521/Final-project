@@ -2,57 +2,41 @@ import React from 'react';
 import PostItem from "./PostItem";
 const PostsList = (props) => {
 
-    let filter_data = []
-    if(props.filter.frame){
-        props.works.forEach(work => {
-            let add_flag = false;
-            for(let i = 0; i < props.techs.length; i++){
-                let tech_stack = props.techs[i];
-                for(let j = 0; j < work.stack_frame.length; j++){
-                    if(work.stack_frame[j] === tech_stack.id){
-                        if(tech_stack.frame.toLowerCase() === props.filter.frame.toLowerCase()){
-                            filter_data.push(work);
-                            add_flag = true;
-                            break;
-                        }
-                    }       
-                }
-                if(add_flag){
-                    break;
-                }
-            }
-        });
-    }
-    else if(props.filter.stack){
-        props.works.forEach(work => {
-            let add_flag = false;
-            for(let i = 0; i < props.techs.length; i++){
-                let tech_stack = props.techs[i];
-                for(let j = 0; j < work.stack_frame.length; j++){
-                    if(work.stack_frame[j] === tech_stack.id){
-                        if(tech_stack.stack.toLowerCase() === props.filter.stack.toLowerCase()){
-                            filter_data.push(work);
-                            add_flag = true;
-                            break;
-                        }
-                    }       
-                }
-                if(add_flag){
-                    break;
-                }
-            }
-        });
-    }
+    const {works, filter, techs} = props
+
+    const filterWorksByFrame = (works, techs, frame) => {
+        return works.filter(work => 
+            work.stack_frame.some(frameId => 
+                techs.some(tech => 
+                    tech.id === frameId && tech.frame.toLowerCase() === frame.toLowerCase()
+                )
+            )
+        );
+    };
     
-    else{
-        filter_data = props.works;
+    const filterWorksByStack = (works, techs, stack) => {
+        return works.filter(work => 
+            work.stack_frame.some(frameId => 
+                techs.some(tech => 
+                    tech.id === frameId && tech.stack.toLowerCase() === stack.toLowerCase()
+                )
+            )
+        );
+    };
+
+    let filtered_data = works;
+
+    if (filter.frame) {
+        filtered_data = filterWorksByFrame(works, techs, filter.frame);
+    } else if (filter.stack) {
+        filtered_data = filterWorksByStack(works, techs, filter.stack);
     }
 
     return (
         <div className="list">
             {props.persons.map((person) => {
                 return (
-                    filter_data.map((work) => {
+                    filtered_data.map((work) => {
                         return(
                             <div key={work.id} className="list_item">
                                 {person.id === work.person ? <PostItem person={person} work={work} techs = {props.techs} />
