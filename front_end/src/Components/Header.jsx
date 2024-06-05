@@ -20,7 +20,7 @@ const Header = () => {
             </div>
             <div className="menu">
                 <a href="" className="link" onClick={handleJobseekersClick}>ученики</a>
-                <a href="" className="link" onClick={handleVacanciesClick}>Вакансии</a>
+                {/* <a href="" className="link" onClick={handleVacanciesClick}>Вакансии</a> */}
                 <a href="https://knewit.kz/" className="link">KnewIT.kz</a>
             </div>
         </div>

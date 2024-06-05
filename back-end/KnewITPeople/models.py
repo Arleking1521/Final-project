@@ -2,6 +2,7 @@ import os
 from django.db import models
 from PIL import Image
 from django.utils import timezone
+from django.core.validators import MinLengthValidator
 
 class certificates(models.Model):
     file = models.FileField(upload_to='certificates/', default=None)
@@ -19,8 +20,29 @@ class certificates(models.Model):
 
     def __str__(self) -> str:
         return f'{self.person_name}'
+    
+class Company(models.Model):
+    name = models.CharField(max_length=128)
+    full_name = models.CharField(max_length=128)
+    website = models.CharField(max_length=128, blank=True, null=True,)
+    email = models.TextField(default=None)
+    iin = models.CharField(max_length=128)
+    phone = models.CharField(max_length=20)
+    place = models.TextField(default=None)
+    logo_light = models.FileField(upload_to='photo/companies/', default=None, null=True, blank=True)
+    logo_dark = models.FileField(upload_to='photo/companies/', default=None, null=True, blank=True)
+    main_color_hex = models.CharField(max_length=7, validators=[MinLengthValidator(7)], default="#FFFFFF")
+    secondary_color_hex = models.CharField(max_length=7, validators=[MinLengthValidator(7)], default="#FFFFFF")
+    def save(self, *args, **kwargs):
+        # Проверяем, было ли предоставлено изображение
+        if not self.photo:
+            self.photo = None
+        super().save(*args, **kwargs)
+    def __str__(self) -> str:
+        return f'{self.name}'
 
 class Person(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=128)
     age = models.IntegerField(default=0)
     phone = models.TextField(default=None)
@@ -40,8 +62,10 @@ class Person(models.Model):
         super().save(*args, **kwargs)
     def __str__(self) -> str:
         return f'{self.name}'
+    
 
 class Tech(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, default=None)
     frame = models.TextField(default=None, null=True, blank=True)
     stack = models.CharField(max_length=128)
     click_counter = models.BigIntegerField( default=0, blank=True)
@@ -65,22 +89,3 @@ class soc_links(models.Model):
     resume = models.FileField(upload_to='resume/', default=None, blank=True)
     def __str__(self) -> str:
         return f'{self.person.name}'
-
-
-
-class Company(models.Model):
-    name = models.CharField(max_length=128)
-    website = models.CharField(max_length=128, blank=True, null=True,)
-    photo = models.FileField(upload_to='photo/companies/', default=None, null=True, blank=True)
-    place = models.TextField(default=None)
-    description= models.TextField(default=None)
-    workers_count = models.IntegerField(default=1)
-    activity_areas = models.TextField(default=None, null=True, blank=True)
-    vacancies_count = models.IntegerField(default=0)
-    def save(self, *args, **kwargs):
-        # Проверяем, было ли предоставлено изображение
-        if not self.photo:
-            self.photo = None
-        super().save(*args, **kwargs)
-    def __str__(self) -> str:
-        return f'{self.name}'
