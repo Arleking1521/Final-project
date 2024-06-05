@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import PostsList from '../Components/PostsList';
+import WorkersList from '../Components/WorkersList';
 import { useNavigate, useLocation, } from 'react-router-dom';
 import { CombinedContext } from '../Context/context';
 import back from "../assets/back-button.png"
@@ -12,7 +12,7 @@ const Main = () => {
     const techs = combinedContext.allDatas.Tech || [];
     const companies = combinedContext.allDatas.Companies || [];
     const company = companies.find(c => c.name.toLowerCase() == combinedContext.companyURL.toLowerCase())
-    const filteredPersons = persons.filter(p => p.company == company.id && p.company_employee == null)
+    const filteredPersons = persons.filter(p => p.company == company.id && p.company_employee != null)
     const filteredTechs = techs.filter(t => t.company == company.id)
     const navigate = useNavigate();
     const location = useLocation();
@@ -44,14 +44,14 @@ const Main = () => {
     const handleFilterClick = (event, path) => {
         event.preventDefault();
         if (urlOption === "frame") {
-            navigate(`/?c=${company.name.toLowerCase()}&stack=${params.stack}&${path}`);
+            navigate(`/workers/?c=${company.name.toLowerCase()}&stack=${params.stack}&${path}`);
         } else {
-            navigate(`/?c=${company.name.toLowerCase()}&${path}`);
+            navigate(`/workers/?c=${company.name.toLowerCase()}&${path}`);
         }
     };
 
     const handleGoBack = () => {
-        navigate(`/?c=${company.name.toLowerCase()}&`);
+        navigate(`/workers/?c=${company.name.toLowerCase()}&`);
     };
 
     console.log(works)
@@ -61,18 +61,11 @@ const Main = () => {
         <div className="main_blog">
             <span className="title_head">
                 {backButtonShow ? <button onClick={handleGoBack}><img src={back} /></button> : null}
-                <h1 className='title'>Наши Ученики</h1>
+                <h1 className='title'>Трудоустроенные Ученики</h1>
             </span>
-            <div className="filter">
-                {UniqueTechs.map((tech) => (
-                    <span>
-                        {tech ? <a href="" style={{backgroundColor: `${mainColorOpacity}`, color: `${mainColor}`}} onClick={(event) => handleFilterClick(event, urlOption + '=' + tech + '&')}>{tech}</a> : null}
-                    </span>
-                ))}
-            </div>
             {/* <button onClick={handleNewClick}>New Post</button> */}
 
-            <PostsList persons={filteredPersons} works={works} techs={filteredTechs} filter={params} company={company} />
+            <WorkersList persons={filteredPersons} works={works} techs={filteredTechs} filter={params} company={company} />
         </div>
     );
 };

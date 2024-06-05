@@ -33,6 +33,9 @@ class Company(models.Model):
     logo_dark = models.FileField(upload_to='photo/companies/', default=None, null=True, blank=True)
     main_color_hex = models.CharField(max_length=7, validators=[MinLengthValidator(7)], default="#FFFFFF")
     secondary_color_hex = models.CharField(max_length=7, validators=[MinLengthValidator(7)], default="#FFFFFF")
+    facebook = models.TextField(default=None, blank=True)
+    youtube = models.TextField(default=None, blank=True)
+    instagram = models.TextField(default=None, blank=True)
     def save(self, *args, **kwargs):
         # Проверяем, было ли предоставлено изображение
         if not self.logo_light:
@@ -46,16 +49,17 @@ class Company(models.Model):
 class Person(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=128)
-    age = models.IntegerField(default=0)
+    age = models.CharField(max_length=10)
     phone = models.TextField(default=None)
     email = models.TextField(default=None)
     photo = models.FileField(upload_to='photo/jobseekers/', default=None, null=True, blank=True)
     living_place = models.TextField(default=None)
     languages= models.TextField(default=None)
-    work_ex = models.TextField(default=None, null=True, blank=True)
+    work_ex = models.TextField(default="Без опыта", null=True, blank=True)
     personal_qualities = models.TextField(default=None, null=True, blank=True)
     certificate_knewit = models.BooleanField(default=False)
     company_employee = models.CharField(default=None, blank=True, null=True)
+    position = models.CharField(default=None, blank=True, null=True)
     certificates = models.ManyToManyField('certificates', related_name='certificates_person', blank=True)
     def save(self, *args, **kwargs):
         # Проверяем, было ли предоставлено изображение

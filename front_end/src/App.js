@@ -1,4 +1,4 @@
-import {BrowserRouter, useNavigate} from "react-router-dom";
+import {BrowserRouter, useLocation } from "react-router-dom";
 import AppRouter from "./Components/AppRouter";
 import Header from "./Components/Header";
 import "./style/style.css"
@@ -12,10 +12,13 @@ import {CombinedContext} from "./Context/context";
 
 
 function App() {
+    const queryParams = new URLSearchParams(window.location.search);
+    const companyURL = queryParams.get('c');
+
     const [allDatas, setAllDatas] = useState([]);
     
     const [fetchAllDatas] = useFetching(async () => setAllDatas(await APIService.getAll()));
-   
+
 
     const loadData = useCallback(() => {
         fetchAllDatas();
@@ -32,7 +35,7 @@ function App() {
 
     
     return (
-        <CombinedContext.Provider value={{ allDatas, setAllDatas }}>
+        <CombinedContext.Provider value={{ allDatas, setAllDatas, companyURL}}>
             <BrowserRouter>
                 <Header />
                 <div className="main">
