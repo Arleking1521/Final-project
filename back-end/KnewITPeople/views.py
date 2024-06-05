@@ -246,13 +246,11 @@ class CompaniesView(APIView):
         return JsonResponse(serializer.data, safe=False)
 
     def post(self, request):
-        # if request.data.photo  == 'null':
-        #     mutable_post = request.POST.copy()
-        #     mutable_post['photo'] = None
-        if 'photo' in request.data and request.data['photo'] == 'null':
+        
+        if 'logo_light' in request.data and request.data['logo_light'] == 'null':
             # Если фото указано и его значение 'null', устанавливаем поле 'photo' в None
             mutable_post = request.POST.copy()
-            mutable_post['photo'] = None
+            mutable_post['logo_light'] = None
 
             serializer = CompanySerializer(data=mutable_post)
             if serializer.is_valid():
@@ -312,7 +310,6 @@ class JobseekersView(APIView):
             'SocLinks': soc_links.objects.all(),
             'Certificates': certificates.objects.all(),
             'Companies': Company.objects.all(),
-            'Vacancies': Vacancy.objects.all(),
         }
         serializer = JobseekersSerializer(data)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK)

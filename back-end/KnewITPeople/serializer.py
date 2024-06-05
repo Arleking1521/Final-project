@@ -8,6 +8,7 @@ class PersonSerializer(serializers.ModelSerializer):
         model = Person
         fields = [ 
             'id', 
+            'company',
             'name', 
             'age', 
             'phone', 
@@ -16,9 +17,9 @@ class PersonSerializer(serializers.ModelSerializer):
             'living_place',
             'languages',
             'work_ex',
+            'personal_qualities',
             'certificate_knewit',
             'certificates',
-            'personal_qualities',
             'company_employee',
             ]
         
@@ -39,6 +40,7 @@ class TechSerializer(serializers.ModelSerializer):
         model = Tech
         fields = [
             'id',
+            'company',
             'frame',
             'stack',
             'click_counter',
@@ -69,14 +71,17 @@ class CompanySerializer(serializers.ModelSerializer):
         model = Company
         fields = [ 
             'id', 
-            'name', 
+            'name',
+            'full_name',
             'website', 
-            'photo', 
+            'email', 
+            'iin',
+            'phone',
             'place', 
-            'description',
-            'workers_count',
-            'activity_areas',
-            'vacancies_count',
+            'logo_light',
+            'logo_dark',
+            'main_color_hex',
+            'secondary_color_hex',
             ]
         
    

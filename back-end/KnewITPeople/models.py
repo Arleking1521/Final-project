@@ -35,8 +35,10 @@ class Company(models.Model):
     secondary_color_hex = models.CharField(max_length=7, validators=[MinLengthValidator(7)], default="#FFFFFF")
     def save(self, *args, **kwargs):
         # Проверяем, было ли предоставлено изображение
-        if not self.photo:
-            self.photo = None
+        if not self.logo_light:
+            self.logo_light = None
+        if not self.logo_dark:
+            self.logo_dark = None
         super().save(*args, **kwargs)
     def __str__(self) -> str:
         return f'{self.name}'
