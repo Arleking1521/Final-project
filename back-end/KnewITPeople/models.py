@@ -24,7 +24,7 @@ class certificates(models.Model):
 class Company(models.Model):
     name = models.CharField(max_length=128)
     full_name = models.CharField(max_length=128)
-    website = models.CharField(max_length=128, blank=True, null=True,)
+    website = models.CharField(max_length=128)
     email = models.TextField(default=None)
     iin = models.CharField(max_length=128)
     phone = models.CharField(max_length=20)
