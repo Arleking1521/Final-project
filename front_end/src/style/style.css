@@ -82,7 +82,6 @@ body{
 }
 
 .myHeader{
-    background-color: #5A49F8;
     display: flex;
     flex-direction: row;
     padding: 5px 12.5%;
@@ -159,8 +158,6 @@ body{
 .filter span a{
     display: inline-block;
     text-decoration: none;
-    color: #5A49F8;
-    background-color: rgba(90, 73, 248, 0.2);
     padding: 5px 20px;
     margin: 5px 15px;
     transition: 0.3s;
@@ -169,10 +166,14 @@ body{
     cursor: pointer;
 }
 
+.position{
+    font-size: 18px;
+    margin: 10px 0;
+}
+
 .filter span a:hover{
 
     transition: 0.3s;
-    background-color: rgba(90, 73, 248, 0.3);
     box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0);
     transform: scale(1.1);
 }
@@ -273,7 +274,6 @@ body{
 .more-but{
     width: 100%;
     padding: 10px 0;
-    background: linear-gradient(#49A4F8, #5A49F8);
     color: white;
     font-size: 14px;
     text-decoration: none;
@@ -290,6 +290,10 @@ body{
     font-size: 14px;
 }
 
+.contacts a{
+    text-decoration: none;
+}
+
 .footer{
     margin-top: 20px;
     display: flex;
@@ -298,6 +302,7 @@ body{
     justify-content: space-between;
     align-items: center;
     background-color: #E3E6EC;
+    min-height: 150px;
 }
 
 .socials
@@ -308,7 +313,6 @@ body{
     height: 36px;
     text-decoration: none;
     color: white;
-    background: linear-gradient(#49A4F8, #5A49F8);
     margin: 10px;
     border-radius: 18px;
     display: flex;

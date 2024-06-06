@@ -1,22 +1,22 @@
 import React from 'react';
-import PostItem from "./PostItem";
+import WorkersItem from "./WorkersItem";
 const PostsList = (props) => {
 
-    const {works, filter, techs, persons, company} = props
+    const { works, filter, techs, persons, company } = props
     const filterWorksByFrame = (works, techs, frame) => {
-        return works.filter(work => 
-            work.stack_frame.some(frameId => 
-                techs.some(tech => 
+        return works.filter(work =>
+            work.stack_frame.some(frameId =>
+                techs.some(tech =>
                     tech.id === frameId && tech.frame.toLowerCase() === frame.toLowerCase()
                 )
             )
         );
     };
-    
+
     const filterWorksByStack = (works, techs, stack) => {
-        return works.filter(work => 
-            work.stack_frame.some(frameId => 
-                techs.some(tech => 
+        return works.filter(work =>
+            work.stack_frame.some(frameId =>
+                techs.some(tech =>
                     tech.id === frameId && tech.stack.toLowerCase() === stack.toLowerCase()
                 )
             )
@@ -35,14 +35,9 @@ const PostsList = (props) => {
         <div className="list">
             {persons.map((person) => {
                 return (
-                    filtered_data.map((work) => {
-                        return(
-                            <div key={work.id} className="list_item">
-                                {person.id === work.person ? <PostItem person={person} work={work} techs = {techs}  company = {company}/>
-                                 : null}
-                            </div>
-                        );
-                    })
+                    <div key={person.id} className="list_item">
+                        <WorkersItem person={person}techs={techs} company={company} />
+                    </div>
                 );
             })}
         </div>

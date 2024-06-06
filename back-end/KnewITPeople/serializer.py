@@ -21,6 +21,7 @@ class PersonSerializer(serializers.ModelSerializer):
             'certificate_knewit',
             'certificates',
             'company_employee',
+            'position',
             ]
         
 
@@ -82,6 +83,9 @@ class CompanySerializer(serializers.ModelSerializer):
             'logo_dark',
             'main_color_hex',
             'secondary_color_hex',
+            'facebook',
+            'youtube',
+            'instagram'
             ]
         
    
