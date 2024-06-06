@@ -7,7 +7,7 @@ import inst from "../assets/icons8-instagram-30.png"
 const Footer = () => {
     const combinedContext = useContext(CombinedContext);
     const companies = combinedContext.allDatas.Companies || [];
-    const company = companies.find(c => c.name.toLowerCase() == combinedContext.companyURL.toLowerCase())
+    const company = companies.find(c => c ? c.name.toLowerCase() : c == combinedContext.companyURL.toLowerCase())
     const mainColor = company && company.main_color_hex ? company.main_color_hex : "#FFFFFF"
     const secColor = company && company.secondary_color_hex ? company.secondary_color_hex : "#FFFFFF"
     return (

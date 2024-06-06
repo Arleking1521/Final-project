@@ -1,6 +1,6 @@
 import React from 'react';
 import WorkersItem from "./WorkersItem";
-const PostsList = (props) => {
+const WorkersList = (props) => {
 
     const { works, filter, techs, persons, company } = props
     const filterWorksByFrame = (works, techs, frame) => {
@@ -44,4 +44,4 @@ const PostsList = (props) => {
     );
 };
 
-export default PostsList;
+export default WorkersList;
