@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import verified from "../assets/icons8-проверено-50.png"
 import WorkService from "../axios/ClaimWorkService";
 import TechService from '../axios/TechService';
+import ClickService from '../axios/ClickService';
 
 
 const PostItem = ({ person, work, techs, company }) => {
@@ -29,11 +30,15 @@ const PostItem = ({ person, work, techs, company }) => {
         }
     }
 
-    const handleDetailsClick = (event) => {
+    const handleDetailsClick = async (event) => {
         event.preventDefault();
-        const techFilt = techs.filter(t => work.stack_frame.filter(sf => sf == t))
-        techFilt.map((t) => {incrementClickCounter(t.id)})
-        navigate(`/details/?c=${company.name.toLowerCase()}&id=${work.id}&`);
+        const techFilt = techs.filter(t => work.stack_frame.some(sf => sf === t.id));
+        await Promise.all(techFilt.map(async (t) => {
+            await incrementClickCounter(t.id);
+            await ClickService.addClick({ tech: t.id });
+        }));
+        console.log("techs : ", techFilt)
+        // navigate(`/details/?c=${company.name.toLowerCase()}&id=${work.id}&`);
     };
     const mainColor = company && company.main_color_hex ? company.main_color_hex : "#FFFFFF"
     const secColor = company && company.secondary_color_hex ? company.secondary_color_hex : "#FFFFFF"

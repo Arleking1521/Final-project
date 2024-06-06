@@ -54,8 +54,8 @@ const Main = () => {
         navigate(`/?c=${company.name.toLowerCase()}&`);
     };
 
-    console.log(works)
 
+    console.log(companies)
 
     return (
         <div className="main_blog">

@@ -313,3 +313,17 @@ class JobseekersView(APIView):
         }
         serializer = JobseekersSerializer(data)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK)
+
+# Views for Click_date's data
+class ClicksView(APIView):
+    def get(self, request):
+        clicks = click_date.objects.all()
+        serializer = ClickSerializer(clicks, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    def post(self, request):
+        serializer = ClickSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
