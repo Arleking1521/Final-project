@@ -5,7 +5,7 @@ import { CombinedContext } from '../Context/context';
 import back from "../assets/back-button.png"
 
 
-const Main = () => {
+const Workers = () => {
     const combinedContext = useContext(CombinedContext);
     const persons = combinedContext.allDatas.Person || [];
     const works = combinedContext.allDatas.Work || [];
@@ -68,4 +68,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default Workers;

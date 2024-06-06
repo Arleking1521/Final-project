@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import verified from "../assets/icons8-проверено-50.png"
 
 
-const PostItem = ({ person, techs, company }) => {
+const WorkersItem = ({ person, techs, company }) => {
     const navigate = useNavigate();
     const handleFilterClick = (event, path) => {
         event.preventDefault(); // Предотвращаем переход по ссылке по умолчанию
@@ -50,4 +50,4 @@ const PostItem = ({ person, techs, company }) => {
     );
 };
 
-export default PostItem;
+export default WorkersItem;

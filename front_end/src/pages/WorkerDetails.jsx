@@ -10,7 +10,7 @@ import li from "../assets/icons8-линкедин-50.png"
 import { CombinedContext } from "../Context/context";
 import { useParams } from "react-router";
 
-const Details = () => {
+const WorkerDetails = () => {
     const combinedContext = useContext(CombinedContext);
 
     const persons = combinedContext.allDatas.Person || [];
@@ -115,4 +115,4 @@ const Details = () => {
     );
 };
 
-export default Details;
+export default WorkerDetails;
