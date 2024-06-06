@@ -35,6 +35,7 @@ const Details = () => {
     const company_photo = company ? company.logo_dark : null
     const profile_photo = person ? person.photo : null
     const mainColor = company && company.main_color_hex ? company.main_color_hex : "#FFFFFF"
+    const secColor = company && company.secondary_color_hex ? company.secondary_color_hex : "#FFFFFF"
 
     const handleFilterClick = (event, path) => {
         event.preventDefault(); // Предотвращаем переход по ссылке по умолчанию
@@ -57,22 +58,22 @@ const Details = () => {
                         <div className="socials">
                             <div className="resume">
                                 {soc_link.resume && (
-                                    <a className="social" href={soc_link.resume}>Резюме на <img src={hh} alt="HH" /></a>
+                                    <a className="social" href={soc_link.resume} style={{background: `linear-gradient(${secColor}, ${mainColor})`}}>Резюме на <img src={hh} alt="HH" /></a>
                                 )}
                             </div>
 
                             <div className="social_list">
                                 {soc_link.WPP && (
-                                    <a href={"https://wa.me/" + soc_link.WPP} className="social"><img src={wpp} alt="WhatsApp" /></a>
+                                    <a href={"https://wa.me/" + soc_link.WPP} className="social" style={{background: `linear-gradient(${secColor}, ${mainColor})`}}><img src={wpp} alt="WhatsApp" /></a>
                                 )}
                                 {soc_link.Github && (
-                                    <a href={"https://github.com/" + soc_link.Github} className="social"><img src={git} alt="GitHub" /></a>
+                                    <a href={"https://github.com/" + soc_link.Github} className="social" style={{background: `linear-gradient(${secColor}, ${mainColor})`}}><img src={git} alt="GitHub" /></a>
                                 )}
                                 {soc_link.linkedIn && (
-                                    <a href={soc_link.linkedin} className="social"><img src={li} alt="LinkedIn" /></a>
+                                    <a href={soc_link.linkedin} className="social" style={{background: `linear-gradient(${secColor}, ${mainColor})`}}><img src={li} alt="LinkedIn" /></a>
                                 )}
                                 {soc_link.telegram && (
-                                    <a href={"https://www.t.me/" + soc_link.telegram} className="social"><img src={telega} alt="Instagram" /></a>
+                                    <a href={"https://www.t.me/" + soc_link.telegram} className="social" style={{background: `linear-gradient(${secColor}, ${mainColor})`}}><img src={telega} alt="Instagram" /></a>
                                 )}
                             </div>
                         </div>

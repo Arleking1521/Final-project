@@ -60,6 +60,7 @@ class Person(models.Model):
     certificate_knewit = models.BooleanField(default=False)
     company_employee = models.CharField(default=None, blank=True, null=True)
     position = models.CharField(default=None, blank=True, null=True)
+    date = models.DateTimeField(default=timezone.now, blank=True)
     certificates = models.ManyToManyField('certificates', related_name='certificates_person', blank=True)
     def save(self, *args, **kwargs):
         # Проверяем, было ли предоставлено изображение

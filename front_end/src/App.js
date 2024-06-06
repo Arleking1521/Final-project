@@ -33,6 +33,8 @@ function App() {
         }
     }, []);
 
+    console.log(companyURL)
+
     
     return (
         <CombinedContext.Provider value={{ allDatas, setAllDatas, companyURL}}>

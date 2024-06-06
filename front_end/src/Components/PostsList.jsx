@@ -27,7 +27,9 @@ const PostsList = (props) => {
 
     if (filter.frame) {
         filtered_data = filterWorksByFrame(works, techs, filter.frame);
+        
     } else if (filter.stack) {
+        console.log(filter.stack)
         filtered_data = filterWorksByStack(works, techs, filter.stack);
     }
 

@@ -22,6 +22,7 @@ class PersonSerializer(serializers.ModelSerializer):
             'certificates',
             'company_employee',
             'position',
+            'date',
             ]
         
 

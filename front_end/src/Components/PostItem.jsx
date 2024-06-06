@@ -37,8 +37,7 @@ const PostItem = ({ person, work, techs, company }) => {
             await incrementClickCounter(t.id);
             await ClickService.addClick({ tech: t.id });
         }));
-        console.log("techs : ", techFilt)
-        // navigate(`/details/?c=${company.name.toLowerCase()}&id=${work.id}&`);
+        navigate(`/details/?c=${company.name.toLowerCase()}&id=${work.id}&`);
     };
     const mainColor = company && company.main_color_hex ? company.main_color_hex : "#FFFFFF"
     const secColor = company && company.secondary_color_hex ? company.secondary_color_hex : "#FFFFFF"
