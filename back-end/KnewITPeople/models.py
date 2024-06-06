@@ -63,6 +63,9 @@ class Person(models.Model):
     certificates = models.ManyToManyField('certificates', related_name='certificates_person', blank=True)
     def save(self, *args, **kwargs):
         # Проверяем, было ли предоставлено изображение
+        if self.company:
+            Claim_work.objects.filter(person=self.id).delete()
+
         if not self.photo:
             self.photo = None
         super().save(*args, **kwargs)
