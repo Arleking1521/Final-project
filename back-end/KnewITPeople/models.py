@@ -98,3 +98,9 @@ class soc_links(models.Model):
     resume = models.FileField(upload_to='resume/', default=None, blank=True)
     def __str__(self) -> str:
         return f'{self.person.name}'
+
+class click_date(models.Model):
+    tech = models.ForeignKey(Tech, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now=timezone.now)
+    def __str__(self) -> str:
+        return f'{self.tech.frame}: {self.date}'

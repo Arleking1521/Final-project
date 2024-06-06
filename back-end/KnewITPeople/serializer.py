@@ -87,7 +87,15 @@ class CompanySerializer(serializers.ModelSerializer):
             'youtube',
             'instagram'
             ]
-        
+
+class ClickSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = click_date
+        fields = [ 
+            'id', 
+            'tech',
+            'date',
+            ]
    
 class JobseekersSerializer(serializers.Serializer):
     Person = PersonSerializer(many=True, read_only=True)

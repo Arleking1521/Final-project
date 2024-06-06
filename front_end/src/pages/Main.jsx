@@ -55,6 +55,7 @@ const Main = () => {
     };
 
 
+
     return (
         <div className="main_blog">
             <span className="title_head">
