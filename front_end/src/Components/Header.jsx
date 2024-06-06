@@ -6,7 +6,7 @@ import { CombinedContext } from '../Context/context';
 const Header = () => {
     const combinedContext = useContext(CombinedContext);
     const companies = combinedContext.allDatas.Companies || [];
-    const company = companies.find(c => c.name.toLowerCase() == combinedContext.companyURL.toLowerCase())
+    const company = companies.find(c => c ? c.name.toLowerCase() : c == combinedContext.companyURL.toLowerCase())
     const navigate = useNavigate();
     const handleJobseekersClick = (event) => {
         event.preventDefault();
@@ -16,8 +16,9 @@ const Header = () => {
         event.preventDefault();
         navigate(`/workers/?c=${company.name.toLowerCase()}&/`);
     };
-    const handleVacanciesClick = () => {
-        navigate(`/vacancy`);
+    const handleAnalyticsClick = (event) => {
+        event.preventDefault();
+        navigate(`/analytics/?c=${company.name.toLowerCase()}&/`);
     };
     return (
         <div className="myHeader" style={{ backgroundColor: `${company && company.main_color_hex ? company.main_color_hex : "#FFFFFF"}` }}>
@@ -30,6 +31,7 @@ const Header = () => {
             <div className="menu">
                 <a href="" className="link" onClick={event => handleJobseekersClick(event)}>ученики</a>
                 <a href="" className="link" onClick={event => handleWorkersClick(event)}>трудоутсроенные</a>
+                <a href="" className="link" onClick={event => handleAnalyticsClick(event)}>статистика</a>
                 {/* <a href="" className="link" onClick={handleVacanciesClick}>Вакансии</a> */}
                 <a href={company ? company.website : null} className="link">{company ? company.name : null}</a>
             </div>

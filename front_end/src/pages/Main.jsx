@@ -11,7 +11,7 @@ const Main = () => {
     const works = combinedContext.allDatas.Work || [];
     const techs = combinedContext.allDatas.Tech || [];
     const companies = combinedContext.allDatas.Companies || [];
-    const company = companies.find(c => c.name.toLowerCase() == combinedContext.companyURL.toLowerCase())
+    const company = companies.find(c => c ? c.name.toLowerCase() : c == combinedContext.companyURL.toLowerCase())
     const filteredPersons = persons.filter(p => p.company == company.id && p.company_employee == null)
     const filteredTechs = techs.filter(t => t.company == company.id)
     const navigate = useNavigate();
@@ -53,8 +53,6 @@ const Main = () => {
     const handleGoBack = () => {
         navigate(`/?c=${company.name.toLowerCase()}&`);
     };
-
-    console.log(works)
 
 
     return (
